@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev
+
+
+camel:
+  springboot:
+    main-run-controller: true
