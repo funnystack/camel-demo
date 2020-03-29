@@ -10,13 +10,15 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>demo-http</module>
+        <module>demo-http4</module>
         <module>demo-file</module>
         <module>demo-ftp</module>
+        <module>demo-jetty</module>
+        <module>demo-netty4-http</module>
     </modules>
     <properties>
         <!-- 通过spring-boot 以及 camel的提供的 BOM管理依赖 -->
-        <camel.version>3.1.0</camel.version>
+        <camel.version>3.0.0-RC3</camel.version>
         <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
     </properties>
 
@@ -42,10 +44,31 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
+
 
 </project>

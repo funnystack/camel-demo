@@ -1,0 +1,7 @@
+camel:
+  component:
+    netty-http:
+      configuration:
+        path: /v3
+        port: 8080
+

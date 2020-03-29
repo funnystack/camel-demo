@@ -9,29 +9,27 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>demo-ftp</artifactId>
+    <artifactId>demo-http4</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
 
     <dependencies>
-        <!-- Camel Spring Boot Starter 包依赖，包含了Spring Boot以及Apache Camel Core的依赖 -->
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-spring-boot-starter</artifactId>
+            <artifactId>camel-http4-starter</artifactId>
+            <version>3.0.0-M3</version>
         </dependency>
-        <!-- camel 内部使用切面代理，不引入会报proxy异常 -->
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-ftp-starter</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.66</version>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.12</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.2-jre</version>
         </dependency>
     </dependencies>
 

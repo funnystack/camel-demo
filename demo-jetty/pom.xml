@@ -9,9 +9,10 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>demo-ftp</artifactId>
+    <artifactId>demo-jetty</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <name>demo-jetty</name>
 
     <dependencies>
         <!-- Camel Spring Boot Starter 包依赖，包含了Spring Boot以及Apache Camel Core的依赖 -->
@@ -19,19 +20,9 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring-boot-starter</artifactId>
         </dependency>
-        <!-- camel 内部使用切面代理，不引入会报proxy异常 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-ftp-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.12</version>
+            <artifactId>camel-jetty</artifactId>
         </dependency>
     </dependencies>
 

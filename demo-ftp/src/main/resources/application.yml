@@ -1,5 +1,10 @@
 
 
+ftp:
+  server: ftp://ftpadmin@127.0.0.1:21/dir?password=1qaz2wsx&delay=5s&move=done&readLock=rename
+  local:
+    path: /Users/fangli/output
+
 
 camel:
   springboot:

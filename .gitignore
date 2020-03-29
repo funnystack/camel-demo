@@ -1,5 +1,7 @@
 HELP.md
-target/
+demo-file/target/
+demo-ftp/target/
+demo-http/target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
