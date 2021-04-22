@@ -2,9 +2,10 @@ package com.example.demo.file;
 
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 @Component
 public class FTPRoute extends RouteBuilder {
@@ -14,7 +15,7 @@ public class FTPRoute extends RouteBuilder {
     @Value("${ftp.local.path}")
     private String localPath;
 
-    @Autowired
+    @Resource
     private FileProcessor fileProcessor;
 
     @Override

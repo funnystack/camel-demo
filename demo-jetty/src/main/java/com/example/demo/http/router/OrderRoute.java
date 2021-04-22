@@ -2,13 +2,14 @@ package com.example.demo.http.router;
 
 import com.example.demo.http.processer.OrderCreateProcessor;
 import org.apache.camel.builder.RouteBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 @Component
 public class OrderRoute extends RouteBuilder {
 
-    @Autowired
+    @Resource
     private OrderCreateProcessor postMethodProcessor;
 
     @Override

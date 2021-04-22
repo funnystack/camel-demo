@@ -2,12 +2,13 @@ package com.example.demo.nettyhttp.router;
 
 import com.example.demo.nettyhttp.processer.NettyMessageProcessor;
 import org.apache.camel.builder.RouteBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 @Component
 public class HttpRoute extends RouteBuilder {
-    @Autowired
+    @Resource
     private NettyMessageProcessor nettyMessageProcessor;
 
     /**

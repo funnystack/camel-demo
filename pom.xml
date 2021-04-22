@@ -16,7 +16,7 @@
         <module>demo-jetty</module>
         <module>demo-netty4-http</module>
         <module>camel-process</module>
-        <module>camel-flow</module>
+        <module>camel-view</module>
 
     </modules>
     <properties>
