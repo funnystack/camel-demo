@@ -1,0 +1,140 @@
+package com.funny.admin.camel.component.next;
+
+import com.funny.admin.camel.component.exception.RouteState;
+import com.funny.admin.camel.context.CamelvContext;
+import com.funny.admin.camelv.constant.Constant;
+import com.funny.admin.camelv.constant.Global;
+import com.funny.admin.camelv.constant.RouteType;
+import com.funny.admin.camelv.entity.CamelvRoute;
+import org.apache.camel.Component;
+import org.apache.camel.Exchange;
+import org.apache.camel.component.ResourceEndpoint;
+import org.apache.camel.spi.UriParam;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 动态设置路由下一个需要执行的地址<br/>
+ * URI Format格式<br/>
+ * next:routeType?routeId=XXX<br/>
+ *
+ * @author xiaoka
+ *
+ */
+public class NextEndpoint extends ResourceEndpoint {
+
+	private Logger logger = LoggerFactory.getLogger(getClass());
+
+	@UriParam
+	private String routeId;
+
+	public NextEndpoint(String uri, Component component, String remaining) {
+		super(uri, component, remaining);
+	}
+
+	@Override
+	protected void onExchange(Exchange exchange) throws Exception {
+		logger.info("设置下一个路由地址,type = " + getResourceUri() + ",exchangeId = " + exchange.getExchangeId());
+		/** 获取路由类型 */
+		String routeType = getResourceUri();
+		// 获取下一个路由地址
+		String nextUri = "", type = "";
+		CamelvRoute route = CamelvContext.getCamelvRoute(routeId);
+		/** 路由被删除,抛出异常 */
+		if (route == null) {
+			exchange.setProperty(Constant.ROUTE_STATE, RouteState.ROUTE_DELETED);
+			throw new Exception("路由已经被删除,id = " + routeId);
+		}
+		/** 获取该路由的后续路由id信息，根据该id集合个数来判断执行策略 */
+		List<String> toList = route.getTo();
+		int toSize = (toList == null || toList.size() == 0) ? 0 : toList.size();
+		if (toSize == 0) {
+			/** 没有配置后续路由或执行结束 */
+			type = "doNothing";
+			/** 如果入口未配置，那么抛出异常，TODO 这里的异常该不该抛出 */
+			if (RouteType.ROUTE_TYPE_JETTY.equals(routeType)) {
+				exchange.setProperty(Constant.ROUTE_STATE, RouteState.JETTY_NOT_CONFIG_NEXT);
+				throw new Exception("jetty入口未配置后续路由");
+			}
+		} else if (toSize == 1) {
+			/**
+			 * 后续路由只有一个<br/>
+			 * 1.可能是串行<br/>
+			 * 2.可能是并行聚合<br/>
+			 * 3.可能是分支聚合<br/>
+			 */
+			String nextRouteId = toList.get(0);
+			/** 后续路由是否是聚合路由,如果是聚合路由那么就不需要执行串行 */
+			CamelvRoute toRoute = CamelvContext.getCamelvRoute(nextRouteId);
+			// 鉴别是否是分支路由
+			String exchangeId = exchange.getExchangeId();
+			String original_exchange_id = exchange.getProperty(Constant.ORIGINAL_EXCHANGE_ID, String.class);
+			/** 后续路由是一个聚合路由,并且exchangeId不相等，那么认为是并行聚合,否则认为是串行或分支聚合 */
+			if (toRoute.getAggregat() && !exchangeId.equals(original_exchange_id)) {
+				/** 并行聚合 */
+				type = "parallelAggregate";
+			} else {
+				/** 分支聚合或串行 */
+				type = "serial";
+			}
+			nextUri = Constant.DIRECT + Constant.PREFFIX_ROUTE_FROM_URI + nextRouteId;
+		} else if (toSize > 1 && route.getCondition() != null && route.getCondition().size() > 0) {
+			/** 分支路由 */
+			type = "branch";
+			/**
+			 * 条件匹配:<br/>
+			 * 由header中的condition参数来匹配line.name参数<br/>
+			 * 未匹配成功的抛出异常<br/>
+			 */
+			/** 参数名字，可配置. TODO 这里 */
+			String conditonKey = Global.getConfig("branch.condition.header.name");
+			String condition = exchange.getIn().getHeader(conditonKey, String.class);
+			/** 保证分支携带了条件 */
+			if (StringUtils.isBlank(condition)) {
+				exchange.setProperty(Constant.ROUTE_STATE, RouteState.CONDITION_IS_NULL);
+				throw new Exception("分支路由执行时条件为空");
+			}
+			/** 进行条件匹配 */
+			Map<String, String> conditionMap = route.getCondition();
+			if (conditionMap.get(condition) == null) {
+				exchange.setProperty(Constant.ROUTE_STATE, RouteState.CONDITION_NOT_MATCH);
+				throw new Exception("分支路由条件匹配失败");
+			}
+			/** 这里用于在聚合时判断使用 */
+			exchange.setProperty(Constant.ORIGINAL_EXCHANGE_ID, exchange.getExchangeId());
+			// 设置地址
+			nextUri = Constant.DIRECT + Constant.PREFFIX_ROUTE_FROM_URI + conditionMap.get(condition);
+		} else {
+			/** 并行路由 */
+			type = "parallel";
+			int size = toList.size();
+			for (int i = 0; i < size; i++) {
+				nextUri += Constant.DIRECT + Constant.PREFFIX_ROUTE_FROM_URI + toList.get(i);
+				if (i != size - 1) {
+					// 添加分隔符
+					nextUri += Constant.RECIPIENT_LIST_DELIMITER;
+				}
+			}
+			/** 这里用于在聚合时判断使用 */
+			exchange.setProperty(Constant.ORIGINAL_EXCHANGE_ID, exchange.getExchangeId());
+		}
+		// 设置执行类型
+		exchange.setProperty("type", type);
+		// 设置下一个地址
+		exchange.setProperty(Constant.NEXT_URI, nextUri);
+		logger.info("type:" + type + " , nextUri = " + nextUri);
+		exchange.setOut(exchange.getIn());
+	}
+
+	public String getRouteId() {
+		return routeId;
+	}
+
+	public void setRouteId(String routeId) {
+		this.routeId = routeId;
+	}
+}

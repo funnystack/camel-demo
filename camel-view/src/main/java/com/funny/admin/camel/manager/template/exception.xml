@@ -1,0 +1,32 @@
+<!--
+	说明:
+	针对exception的路由模板
+-->
+<routes xmlns="http://camel.apache.org/schema/spring">
+	<route id="route.routeId">
+		<from uri="${route.from.uri}" />
+		<to uri="before:${route.type}?routeId=${route.id}" />
+		<to uri="next:${route.type}?routeId=${route.id}" />
+		<choice>
+			<!-- 串行或分支执行 -->
+			<when>
+				<simple>${property.type} == 'serial' or ${property.type} == 'branch'</simple>
+				<toD uri="${property.nextUrl}" />
+			</when>
+			<when>
+				<simple>${property.type} == 'parallel'</simple>
+				<!-- 并行执行 -->
+				<recipientList parallelProcessing="true" strategyRef="aggregationStrategy">
+					<simple>${property.nextUrl}</simple>
+				</recipientList>
+				<!-- 聚合执行 -->
+				<choice>
+					<when>
+						<simple>${property.nextUrl} != ''</simple>
+						<toD uri="${property.nextUrl}" />
+					</when>
+				</choice>
+			</when>
+		</choice>
+	</route>
+</routes>
