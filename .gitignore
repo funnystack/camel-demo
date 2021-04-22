@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+camel-process/target
+camel-view/target
+demo-file/target
+demo-ftp/target
+demo-http4/target
+demo-jetty/target
+demo-netty4-http/target
