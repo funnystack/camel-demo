@@ -15,11 +15,17 @@
         <module>demo-ftp</module>
         <module>demo-jetty</module>
         <module>demo-netty4-http</module>
+        <module>camel-process</module>
+        <module>camel-flow</module>
+
     </modules>
     <properties>
         <!-- 通过spring-boot 以及 camel的提供的 BOM管理依赖 -->
-        <camel.version>3.0.0-RC3</camel.version>
+        <camel.version>3.1.0</camel.version>
         <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
+        <log4j2-version>2.11.1</log4j2-version>
+        <druid.version>1.1.10</druid.version>
+        <combo.framework.version>1.0.0-SNAPSHOT</combo.framework.version>
     </properties>
 
     <dependencyManagement>
@@ -28,13 +34,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-spring-boot-dependencies</artifactId>
-                <version>${camel.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

@@ -11,7 +11,7 @@ import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.util.CharsetUtil;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.component.netty4.http.NettyHttpMessage;
+import org.apache.camel.component.netty.http.NettyHttpMessage;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 

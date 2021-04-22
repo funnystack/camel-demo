@@ -16,19 +16,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-netty4-http-starter</artifactId>
-            <version>3.0.0-M4</version>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-netty-http-starter</artifactId>
+            <version>${camel.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.camel</groupId>-->
-<!--            <artifactId>camel-netty4-http</artifactId>-->
-<!--            <version>3.0.0-M4</version>-->
-<!--        </dependency>-->
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.66</version>
+            <version>1.2.74</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
