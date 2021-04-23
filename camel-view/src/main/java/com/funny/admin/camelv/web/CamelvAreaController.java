@@ -1,9 +1,8 @@
 package com.funny.admin.camelv.web;
 
-import com.funny.admin.camelv.entity.CamelvArea;
+import com.funny.admin.camelv.entity.CamelvAreaEntity;
 import com.funny.admin.camelv.entity.vo.ResponseData;
 import com.funny.admin.camelv.service.ICamelvAreaService;
-import com.funny.admin.controller.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 
 @Controller
-@RequestMapping(value = "${adminPath}/camelv/area")
+@RequestMapping(value = "/camelv/area")
 public class CamelvAreaController extends BaseController {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
@@ -31,9 +30,14 @@ public class CamelvAreaController extends BaseController {
 	 */
 	@RequestMapping(value = "save")
 	@ResponseBody
-	public ResponseData save(Model model, CamelvArea area) {
+	public ResponseData save(Model model, CamelvAreaEntity area) {
 		logger.info("保存工作区:" + area);
-		ResponseData rd = areaService.save(area);
+		ResponseData rd = null;
+		try {
+			areaService.insertSelective(area);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return rd;
 	}
 
@@ -50,7 +54,13 @@ public class CamelvAreaController extends BaseController {
 	@ResponseBody
 	public ResponseData move(Model model, String id, Integer left, Integer top) {
 		logger.info("移动工作区: id = " + id + " , left =  " + left + " , top = " + top);
-		ResponseData rd = areaService.move(id, left, top);
+		CamelvAreaEntity camelvAreaEntity = new CamelvAreaEntity();
+		ResponseData rd = null;
+		try {
+			areaService.updateSelectiveById(camelvAreaEntity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return rd;
 	}
 
@@ -65,7 +75,13 @@ public class CamelvAreaController extends BaseController {
 	@ResponseBody
 	public ResponseData delete(Model model, String id) {
 		logger.info("删除路由:" + id);
-		ResponseData rd = areaService.delete(id);
+		CamelvAreaEntity camelvAreaEntity = new CamelvAreaEntity();
+		ResponseData rd = null;
+		try {
+			areaService.updateSelectiveById(camelvAreaEntity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return rd;
 	}
 
@@ -81,7 +97,13 @@ public class CamelvAreaController extends BaseController {
 	@ResponseBody
 	public ResponseData rename(Model model, String id, String name) {
 		logger.info("路由重命名:" + id);
-		ResponseData rd = areaService.rename(id, name);
+		CamelvAreaEntity camelvAreaEntity = new CamelvAreaEntity();
+		ResponseData rd = null;
+		try {
+			areaService.updateSelectiveById(camelvAreaEntity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return rd;
 	}
 
@@ -98,7 +120,13 @@ public class CamelvAreaController extends BaseController {
 	@ResponseBody
 	public ResponseData resize(Model model, String id, Integer width, Integer height) {
 		logger.info("路由设置图形大小:" + id);
-		ResponseData rd = areaService.resize(id, width, height);
+		CamelvAreaEntity camelvAreaEntity = new CamelvAreaEntity();
+		ResponseData rd = null;
+		try {
+			areaService.updateSelectiveById(camelvAreaEntity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return rd;
 	}
 

@@ -20,7 +20,7 @@ import javax.sql.DataSource;
  * 数据源配置工具类
  */
 @Configuration
-@MapperScan(basePackages = "com.funny.admin.dao", sqlSessionTemplateRef = "leadsSqlSessionTemplate")
+@MapperScan(basePackages = "com.funny.admin.camelv.dao", sqlSessionTemplateRef = "leadsSqlSessionTemplate")
 public class DataSourceStatConfig {
 
     @Value("${spring.profiles.active}")
@@ -44,7 +44,7 @@ public class DataSourceStatConfig {
     public SqlSessionFactory leadsSqlSessionFactory(@Qualifier("leadsDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mybatis/mapper/stat/*.xml"));
+        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/camelv/*.xml"));
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         if(profile.equalsIgnoreCase("dev")){
             configuration.setLogImpl(StdOutImpl.class);

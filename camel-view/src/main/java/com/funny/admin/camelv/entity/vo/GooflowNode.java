@@ -13,7 +13,7 @@ public class GooflowNode implements Serializable {
 
 	/** 序列ID */
 	private static final long serialVersionUID = 10000L;
-	private String id;// 节点id
+	private String dataId;// 节点id
 	private String name;// 节点显示的名称
 	private Integer left;// 节点距离左侧的距离,单位：像素
 	private Integer top;// 节点距离顶部的距离，单位：像素
@@ -26,10 +26,10 @@ public class GooflowNode implements Serializable {
 		super();
 	}
 
-	public GooflowNode(String id, String name, Integer left, Integer top, String type, Integer width, Integer height,
+	public GooflowNode(String dataId, String name, Integer left, Integer top, String type, Integer width, Integer height,
 			Boolean alt) {
 		super();
-		this.id = id;
+		this.dataId = dataId;
 		this.name = name;
 		this.left = left;
 		this.top = top;
@@ -40,11 +40,11 @@ public class GooflowNode implements Serializable {
 	}
 
 	public String getId() {
-		return id;
+		return dataId;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.dataId = id;
 	}
 
 	public String getName() {
@@ -105,7 +105,7 @@ public class GooflowNode implements Serializable {
 
 	@Override
 	public String toString() {
-		return "GooflowNode [id=" + id + ", name=" + name + ", left=" + left + ", top=" + top + ", type=" + type
+		return "GooflowNode [id=" + dataId + ", name=" + name + ", left=" + left + ", top=" + top + ", type=" + type
 				+ ", width=" + width + ", height=" + height + ", alt=" + alt + "]";
 	}
 }

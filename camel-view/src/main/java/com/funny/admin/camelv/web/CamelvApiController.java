@@ -1,6 +1,5 @@
 package com.funny.admin.camelv.web;
 
-import com.funny.admin.controller.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping(value = "${adminPath}/camelv/api")
+@RequestMapping(value = "/camelv/api")
 public class CamelvApiController extends BaseController {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());

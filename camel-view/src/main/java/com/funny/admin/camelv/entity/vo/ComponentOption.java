@@ -9,7 +9,6 @@ import java.io.Serializable;
  *
  */
 public class ComponentOption implements Serializable {
-
 	/**
 	 * 
 	 */

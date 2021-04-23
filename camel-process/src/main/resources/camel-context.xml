@@ -12,6 +12,7 @@
             <to uri="bean:returnStockComponent"/>
             <to uri="bean:returnPointsComponent"/>
 
+
         </route>
 
         <route id="closeOrderRoute">

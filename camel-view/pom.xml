@@ -68,6 +68,11 @@
         </dependency>
 
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.11</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -139,6 +144,12 @@
             <version>2.10.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.funny.combo</groupId>
+            <artifactId>combo-camel</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
 <!--        &lt;!&ndash; log4j2 &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>org.slf4j</groupId>-->
@@ -185,6 +196,22 @@
                     <finalName>${project.artifactId}</finalName>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.funny.combo</groupId>
+                <artifactId>combo-codegen-plugin</artifactId>
+                <version>${combo.framework.version}</version>
+                <configuration>
+                    <jdbcDriver>com.mysql.cj.jdbc.Driver</jdbcDriver>
+                    <jdbcURL>jdbc:mysql://127.0.0.1:3306/camel?useUnicode=true&amp;characterEncoding=UTF-8</jdbcURL>
+                    <jdbcUserId>root</jdbcUserId>
+                    <jdbcPassword>123456</jdbcPassword>
+                    <projectDirectory>${project.basedir}</projectDirectory>
+                    <packageName>com.funny.admin</packageName>
+                    <moduleName>camelv</moduleName>
+                    <tableNames>camelv_server_log</tableNames>
+                    <ignorePeffix>ERP,CC</ignorePeffix>
+                </configuration>
+            </plugin>
         </plugins>
         <filters>
             <filter>src/main/resources/application-${activatedProperties}.yml</filter>
@@ -206,6 +233,7 @@
                 <includes>
                     <include>application.yml</include>
                     <include>application-*.yml</include>
+                    <include>*.properties</include>
                 </includes>
                 <!-- true 打包時候變量替換 -->
                 <filtering>true</filtering>

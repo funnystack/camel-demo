@@ -1,101 +1,70 @@
 package com.funny.admin.camelv.entity;
 
-import com.funny.admin.camelv.entity.vo.RouteVo;
+import com.funny.admin.camelv.entity.vo.ComponentOption;
 
-public class CamelvRoute extends RouteVo {
+import java.util.List;
+import java.util.Map;
 
-    private static final long serialVersionUID = -5278302121217657829L;
-    private String name;// 定义路由名称
-    private String type;// 节点类型，如：jetty，http，ftp...
-    private String serverId;// 关联的服务id，一个服务对应多个路由
-    private String relatedResourceId;// 关联资源id
-    private String option;// 路由的其他配置参数
-    private String uri;// 对应camel的uri
-    // 坐标位置
-    private Integer left;// 距离左侧位置，单位：像素
-    private Integer top;// 距离顶侧位置，单位：像素
-    private Integer width;// 距离左侧位置，单位：像素
-    private Integer height;// 距离左侧位置，单位：像素
+public class CamelvRoute extends CamelvRouteEntity {
 
-    public String getName() {
-        return name;
+    /** 记录该路由后续需要执行的多个路由id */
+    private List<String> to;
+    /** 记录指向该路由的路由id */
+    private List<String> from;
+    /** 记录分支路由指向下一个路由的条件，key:当前路由指向下一个路由的条件，value：满足条件执行的下一个路由id */
+    private Map<String, String> condition;
+    /** 记录是否是聚合路由 */
+    private Boolean aggregat;
+    /** 关联的异常路由id */
+    private String exceptionId;
+    /** 参数 */
+    private List<ComponentOption> optionList;
+
+    public List<String> getTo() {
+        return to;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTo(List<String> to) {
+        this.to = to;
     }
 
-    public String getType() {
-        return type;
+    public List<String> getFrom() {
+        return from;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setFrom(List<String> from) {
+        this.from = from;
     }
 
-    public String getServerId() {
-        return serverId;
+    public Map<String, String> getCondition() {
+        return condition;
     }
 
-    public void setServerId(String serverId) {
-        this.serverId = serverId;
+    public void setCondition(Map<String, String> condition) {
+        this.condition = condition;
     }
 
-    public String getRelatedResourceId() {
-        return relatedResourceId;
+    public Boolean getAggregat() {
+        return aggregat;
     }
 
-    public void setRelatedResourceId(String relatedResourceId) {
-        this.relatedResourceId = relatedResourceId;
+    public void setAggregat(Boolean aggregat) {
+        this.aggregat = aggregat;
     }
 
-    public String getOption() {
-        return option;
+    public String getExceptionId() {
+        return exceptionId;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setExceptionId(String exceptionId) {
+        this.exceptionId = exceptionId;
     }
 
-    public Integer getLeft() {
-        return left;
+    public List<ComponentOption> getOptionList() {
+        return optionList;
     }
 
-    public void setLeft(Integer left) {
-        this.left = left;
+    public void setOptionList(List<ComponentOption> optionList) {
+        this.optionList = optionList;
     }
-
-    public Integer getTop() {
-        return top;
-    }
-
-    public void setTop(Integer top) {
-        this.top = top;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-
 }

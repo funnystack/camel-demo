@@ -1,23 +1,14 @@
 package com.funny.admin.camelv.service;
 
-import com.funny.admin.camelv.constant.Page;
 import com.funny.admin.camelv.entity.CamelvNode;
-import com.funny.admin.camelv.entity.vo.ResponseData;
+import com.funny.admin.camelv.entity.CamelvNodeEntity;
+import com.funny.combo.core.base.BaseService;
 
 import java.util.List;
 
-public interface ICamelvNodeService {
-
+public interface ICamelvNodeService extends BaseService<CamelvNodeEntity> {
     List<CamelvNode> getAll();
 
-    CamelvNode get(String id);
 
-    ResponseData save(CamelvNode camelvNode);
-
-    ResponseData update(CamelvNode camelvNode);
-
-    ResponseData delete(String id);
-
-    Page<CamelvNode> find(Page<CamelvNode> page, CamelvNode camelvNode);
-
+    CamelvNodeEntity findByURL(String url);
 }

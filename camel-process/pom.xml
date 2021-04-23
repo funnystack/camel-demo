@@ -32,11 +32,6 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
@@ -139,9 +134,9 @@
 
     <profiles>
         <profile>
-            <id>yz-dev</id>
+            <id>dev</id>
             <properties>
-                <activatedProperties>yzdev</activatedProperties>
+                <activatedProperties>dev</activatedProperties>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>

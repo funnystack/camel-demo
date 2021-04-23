@@ -17,6 +17,7 @@
         <module>demo-netty4-http</module>
         <module>camel-process</module>
         <module>camel-view</module>
+        <module>combo-camel</module>
 
     </modules>
     <properties>
