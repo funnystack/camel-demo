@@ -33,6 +33,7 @@ build/
 .vscode/
 camel-process/target
 camel-view/target
+combo-camel/target
 demo-file/target
 demo-ftp/target
 demo-http4/target
