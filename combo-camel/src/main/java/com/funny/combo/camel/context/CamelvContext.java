@@ -1,9 +1,7 @@
 package com.funny.combo.camel.context;
 
-import com.funny.combo.camel.entity.CamelvGroovy;
-import com.funny.combo.camel.entity.CamelvHttp;
-import com.funny.combo.camel.entity.CamelvLine;
-import com.funny.combo.camel.entity.CamelvRoute;
+import com.funny.combo.camel.consts.RouteType;
+import com.funny.combo.camel.entity.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +38,16 @@ public class CamelvContext {
      */
     private static ConcurrentMap<String, CamelvHttp> camelvHttpMap = new ConcurrentHashMap<String, CamelvHttp>();
     /**
+     * 记录bean信息，key:id,value：实体对象
+     */
+    private static ConcurrentMap<String, CamelvBean> camelBeanMap = new ConcurrentHashMap<String, CamelvBean>();
+
+    /**
+     * 记录direct信息，key:id,value：实体对象
+     */
+    private static ConcurrentMap<String, CamelvDirect> camelDirectMap = new ConcurrentHashMap<String, CamelvDirect>();
+
+    /**
      * 记录路由信息，key:id,value：实体对象
      */
     private static ConcurrentMap<String, CamelvRoute> camelvRouteMap = new ConcurrentHashMap<String, CamelvRoute>();
@@ -61,6 +69,15 @@ public class CamelvContext {
      */
     public static void deleteCamelvHttp(String id) {
         camelvHttpMap.remove(id);
+    }
+
+    /**
+     * 从内存中删除对象
+     *
+     * @param id
+     */
+    public static void deleteCamelvBean(String id) {
+        camelBeanMap.remove(id);
     }
 
     /**
@@ -161,6 +178,25 @@ public class CamelvContext {
     }
 
     /**
+     * 添加对象到内存中
+     *
+     * @param camelvBean
+     */
+    public static void addCamelvBean(CamelvBean camelvBean) {
+        camelBeanMap.put(camelvBean.getDataId(), camelvBean);
+        addCamelvRoute4Bean(camelvBean);
+    }
+
+    /**
+     * 添加对象到内存中
+     *
+     * @param camelvDirect
+     */
+    public static void addCamelvDirect(CamelvDirect camelvDirect) {
+        camelDirectMap.put(camelvDirect.getDataId(), camelvDirect);
+    }
+
+    /**
      * 根据id获取内存中缓存的对象
      *
      * @param id
@@ -173,16 +209,31 @@ public class CamelvContext {
 
     /**
      * 添加对象到内存中,改变路由关系时调用
-     *
-     * @param camelvRoute
      */
-    public static void addCamelvRoute4Line(CamelvRoute camelvRoute) {
-        CamelvRoute route = camelvRouteMap.get(camelvRoute.getDataId());
+    public static void addCamelvRoute4Line(CamelvLine camelvLine) {
+        CamelvRoute route = camelvRouteMap.get(camelvLine.getFlowId());
         if (route == null) {
             route = new CamelvRoute();
         }
-        BeanUtils.copyProperties(camelvRoute, route);
-        camelvRouteMap.put(camelvRoute.getDataId(), route);
+        BeanUtils.copyProperties(camelvLine, route);
+        camelvRouteMap.put(camelvLine.getFlowId(), route);
+    }
+
+    /**
+     * 添加对象到内存中，改变路由属性时调用
+     *
+     * @param camelvBean
+     */
+    public static void addCamelvRoute4Bean(CamelvBean camelvBean) {
+        CamelvRoute route = camelvRouteMap.get(camelvBean.getDataId());
+        if (route == null) {
+            route = new CamelvRoute();
+
+        }
+        route.setRouteId(camelvBean.getDataId());
+        route.setRouteType(RouteType.ROUTE_TYPE_BEAN);
+        route.setRouteName(camelvBean.getBeanName());
+        camelvRouteMap.put(camelvBean.getDataId(), route);
     }
 
     /**
@@ -191,13 +242,13 @@ public class CamelvContext {
      * @param camelvRoute
      */
     public static void addCamelvRoute4Route(CamelvRoute camelvRoute) {
-        CamelvRoute route = camelvRouteMap.get(camelvRoute.getDataId());
+        CamelvRoute route = camelvRouteMap.get(camelvRoute.getRouteId());
         if (route != null) {
             // 不创建新对象
             route.setOptionList(camelvRoute.getOptionList());
-            route.setName(camelvRoute.getName());
+            route.setRouteName(camelvRoute.getRouteName());
         } else {
-            camelvRouteMap.put(camelvRoute.getDataId(), camelvRoute);
+            camelvRouteMap.put(camelvRoute.getRouteId(), camelvRoute);
         }
     }
 
@@ -369,7 +420,11 @@ public class CamelvContext {
 
     // 获取所有的路由信息
     public static List<CamelvRoute> getAllCamelRoutes() {
-        return null;
+        List<CamelvRoute> camelvRouteList = new ArrayList<>();
+        for (Entry<String, CamelvRoute> entry : camelvRouteMap.entrySet()) {
+            camelvRouteList.add(entry.getValue());
+        }
+        return camelvRouteList;
     }
 
     // 拉取信息存入map

@@ -2,12 +2,11 @@ package com.funny.combo.camel.consts;
 
 /**
  * 工程使用的常量<br/>
- * 
+ *
  * @author xiaoka
  *
  */
 public interface Constant {
-
 	/** 成功 */
 	public static final String SUCCESS = "success";
 	/** 失败 */
@@ -29,9 +28,6 @@ public interface Constant {
 	public static final String PUBLISH_ERROR = "发布失败";
 
 	public static final String ROUTE_RULE_NULL = "路由规则为空";
-
-
-
 	// 以下是http类型
 	/** post请求 */
 	public static final String HTTP_POST = "post";
@@ -55,7 +51,6 @@ public interface Constant {
 	public static final String NEXT_URI = "nextUri";
 	/** 异常路由地址 */
 	public static final String EXCEPTION_NEXT_URI = "exceptionUrl";
-
 	// 错误码
 	/** 异常时存入的理由状态异常信息 */
 	public static final String ROUTE_STATE = "routeState";

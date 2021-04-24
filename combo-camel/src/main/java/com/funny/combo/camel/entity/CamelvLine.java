@@ -3,17 +3,14 @@ package com.funny.combo.camel.entity;
 import java.io.Serializable;
 
 public class CamelvLine implements Serializable {
-
+    /**
+     * 流程id
+     */
+    private String flowId;
     /**
      *
      */
-    private String dataId;
-
-    /**
-     * 关联服务
-     */
-    private String serverId;
-
+    private String lineId;
     /**
      * 起始端
      */
@@ -44,20 +41,22 @@ public class CamelvLine implements Serializable {
      */
     private String remarks;
 
-    public String getDataId() {
-        return dataId;
+
+
+    public String getFlowId() {
+        return flowId;
     }
 
-    public void setDataId(String dataId) {
-        this.dataId = dataId;
+    public void setFlowId(String flowId) {
+        this.flowId = flowId;
     }
 
-    public String getServerId() {
-        return serverId;
+    public String getLineId() {
+        return lineId;
     }
 
-    public void setServerId(String serverId) {
-        this.serverId = serverId;
+    public void setLineId(String lineId) {
+        this.lineId = lineId;
     }
 
     public String getFromRouteId() {

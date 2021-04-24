@@ -4,12 +4,11 @@ import java.io.Serializable;
 
 /**
  * groovy脚本资源
- * 
+ *
  * @author xiaoka
  *
  */
 public class CamelvGroovy implements Serializable {
-
     /**
      *
      */
@@ -28,6 +27,8 @@ public class CamelvGroovy implements Serializable {
      *
      */
     private String script;
+
+
 
     public void setDataId(String dataId) {
         this.dataId = dataId == null ? null : dataId.trim();

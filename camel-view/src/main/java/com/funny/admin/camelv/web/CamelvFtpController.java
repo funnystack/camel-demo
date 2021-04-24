@@ -1,7 +1,6 @@
 package com.funny.admin.camelv.web;
 
 import com.funny.admin.camelv.constant.Global;
-import com.funny.admin.camelv.entity.CamelvFtp;
 import com.funny.admin.camelv.entity.CamelvFtpEntity;
 import com.funny.admin.camelv.entity.vo.ResponseData;
 import com.funny.admin.camelv.service.ICamelvFtpService;
@@ -78,7 +77,7 @@ public class CamelvFtpController extends BaseController {
 	}
 
 	@RequestMapping(value = "list")
-	public String find(Model model, CamelvFtp camelvFtp) {
+	public String find(Model model, CamelvFtpEntity camelvFtp) {
 		logger.info("查询  camelvFtp " + camelvFtp);
 //		page.setPageSize(Integer.parseInt(Global.getConfig("page.pageSize")));
 //		Page<CamelvFtp> resultPage = camelvFtpService.find(page, camelvFtp);

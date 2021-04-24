@@ -1,6 +1,6 @@
 package com.funny.admin.camelv.web;
 
-import com.funny.admin.camelv.entity.CamelvCategory;
+import com.funny.admin.camelv.entity.CamelvCategoryEntity;
 import com.funny.admin.camelv.service.ICamelvCategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ public class CamelvCategoryController extends BaseController {
     private ICamelvCategoryService camelvCategoryService;
 
     @RequestMapping(value = "list")
-    public String find(Model model, CamelvCategory camelvFtp) {
+    public String find(Model model, CamelvCategoryEntity camelvFtp) {
         logger.info("查询 类别 " + camelvFtp);
 //		page.setPageSize(Integer.parseInt(Global.getConfig("page.pageSize")));
 //		camelvCategoryService.getClass();

@@ -1,7 +1,6 @@
 package com.funny.admin.camelv.service.impl;
 
 import com.funny.admin.camelv.dao.CamelvJdbcMapper;
-import com.funny.admin.camelv.entity.CamelvJdbc;
 import com.funny.admin.camelv.entity.CamelvJdbcEntity;
 import com.funny.admin.camelv.service.ICamelvJdbcService;
 import com.funny.combo.core.base.BaseMapper;
@@ -26,7 +25,7 @@ public class CamelvJdbcServiceImpl extends BaseServiceImpl<CamelvJdbcEntity>  im
 	}
 
 	@Override
-	public List<CamelvJdbc> getAll() {
+	public List<CamelvJdbcEntity> getAll() {
 		return null;
 	}
 

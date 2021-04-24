@@ -4,11 +4,12 @@ import java.io.Serializable;
 
 /**
  * bean资源
- * 
+ *
  * @author xiaoka
  *
  */
 public class CamelvBean implements Serializable {
+
     /**
      *
      */

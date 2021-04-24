@@ -1,7 +1,6 @@
 package com.funny.admin.camelv.service.impl;
 
 import com.funny.admin.camelv.dao.CamelvGroovyMapper;
-import com.funny.admin.camelv.entity.CamelvGroovy;
 import com.funny.admin.camelv.entity.CamelvGroovyEntity;
 import com.funny.admin.camelv.service.ICamelvGroovyService;
 import com.funny.combo.core.base.BaseMapper;
@@ -27,7 +26,7 @@ public class CamelvGroovyServiceImpl extends BaseServiceImpl<CamelvGroovyEntity>
     }
 
     @Override
-    public List<CamelvGroovy> getAll() {
+    public List<CamelvGroovyEntity> getAll() {
         return null;
     }
     //			pushDataService.pushCamelvGroovy(camelvGroovy);

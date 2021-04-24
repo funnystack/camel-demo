@@ -2,14 +2,14 @@ package com.funny.combo.camel.component.exception;
 
 /**
  * 路由执行状态<br/>
- * 
+ *
  * @author xiaoka
  *
  */
 public enum RouteState {
 
-	UNKNOWN_EXCEPTION("700", "未知异常", "该异常不在处理范围内!"), 
-	ROUTE_DELETED("701", "路由已经被删除","请确定该路由是否被删除!"), 
+	UNKNOWN_EXCEPTION("700", "未知异常", "该异常不在处理范围内!"),
+	ROUTE_DELETED("701", "路由已经被删除","请确定该路由是否被删除!"),
 	RESOURCE_NOT_CONFIG("702", "资源未配置", "请先配置该路由的关联资源!"),
 	RESOURCE_NOT_FOUND("703", "资源未找到", "请确定资源是否被删除!"),
 	GROOVY_SCRIPT_NULL("704", "groovy脚本为空", "请先配置groovy脚本!"),

@@ -43,7 +43,12 @@
         </root>
         <Logger name="org.springframework" level="INFO" />
 
-        <logger name="com.funny.study.camel" additivity="false">
+        <Logger name="com.funny.combo.camel" level="INFO"  additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
+
+        <logger name="com.funny.demo.camel" additivity="false">
+            <appender-ref ref="Console"/>
             <appender-ref ref="errorFile"/>
             <appender-ref ref="infoFile"/>
         </logger>

@@ -10,8 +10,9 @@ import org.apache.camel.model.RoutesDefinition;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -22,12 +23,14 @@ import java.util.List;
  *
  * @author xiaoka
  */
+@Component
 public class RouteManager {
 
     public static Logger logger = LoggerFactory.getLogger(RouteManager.class);
 
-    @Resource
+    @Autowired(required = false)
     private CamelContext camelContext;
+
 
     /**
      * 发布路由规则
@@ -76,9 +79,9 @@ public class RouteManager {
      */
     public OperateResult addRouteDefinition(CamelvRoute route) {
         RoutesDefinition routesDefinition = null;
-        RouteDefinition definition = camelContext.getRouteDefinition(Constant.PREFFIX_ROUTE_ID + route.getDataId());
+        RouteDefinition definition = camelContext.getRouteDefinition(Constant.PREFFIX_ROUTE_ID + route.getRouteId());
         if (definition != null) {
-            logger.info("该路由" + route.getDataId() + "已经加载");
+            logger.info("该路由" + route.getRouteId() + "已经加载");
             return OperateResult.succ();
         }
         try {
@@ -99,7 +102,7 @@ public class RouteManager {
                 routes.add(routeDefinition.getId());
                 camelContext.addRouteDefinition(routeDefinition);
                 // 记录发布成功的id
-                logger.debug(routeDefinition.getId() + "加载成功\n");
+                logger.info(routeDefinition.getId() + "加载成功\n");
             }
             return OperateResult.succ();
         } catch (Exception e) {

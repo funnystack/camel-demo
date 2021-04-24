@@ -21,7 +21,6 @@ import java.util.Map;
  * @version 2013-01-15
  */
 public class FreeMarkers {
-
 	public static String renderString(String templateString, Map<String, ?> model) {
 		try {
 			StringWriter result = new StringWriter();

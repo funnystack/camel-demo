@@ -1,7 +1,6 @@
 package com.funny.admin.camelv.service.impl;
 
 import com.funny.admin.camelv.dao.CamelvHostMapper;
-import com.funny.admin.camelv.entity.CamelvHost;
 import com.funny.admin.camelv.entity.CamelvHostEntity;
 import com.funny.admin.camelv.service.ICamelvHostService;
 import com.funny.combo.core.base.BaseMapper;
@@ -27,7 +26,7 @@ public class CamelvHostServiceImpl extends BaseServiceImpl<CamelvHostEntity> imp
     }
 
     @Override
-    public List<CamelvHost> getAll() {
+    public List<CamelvHostEntity> getAll() {
         return null;
     }
 

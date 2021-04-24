@@ -2,7 +2,6 @@ package com.funny.admin.camelv.service.impl;
 
 import com.funny.admin.camelv.dao.CamelvLineMapper;
 import com.funny.admin.camelv.dao.CamelvRouteMapper;
-import com.funny.admin.camelv.entity.CamelvRoute;
 import com.funny.admin.camelv.entity.CamelvRouteEntity;
 import com.funny.admin.camelv.entity.vo.ResponseData;
 import com.funny.admin.camelv.service.ICamelvRouteService;
@@ -55,7 +54,7 @@ public class CamelvRouteServiceImpl extends BaseServiceImpl<CamelvRouteEntity> i
     }
 
     @Override
-    public List<CamelvRoute> getAll() {
+    public List<CamelvRouteEntity> getAll() {
         return null;
     }
 

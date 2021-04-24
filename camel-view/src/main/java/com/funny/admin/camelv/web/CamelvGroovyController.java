@@ -1,8 +1,6 @@
 package com.funny.admin.camelv.web;
 
 import com.funny.admin.camelv.constant.Global;
-import com.funny.admin.camelv.constant.Page;
-import com.funny.admin.camelv.entity.CamelvGroovy;
 import com.funny.admin.camelv.entity.CamelvGroovyEntity;
 import com.funny.admin.camelv.entity.vo.ResponseData;
 import com.funny.admin.camelv.service.ICamelvGroovyService;
@@ -29,7 +27,7 @@ public class CamelvGroovyController extends BaseController {
 	@RequestMapping(value = "form")
 	public String form(Model model, String id) {
 		logger.info("编辑 id = " + id);
-		CamelvGroovyEntity camelvGroovy = new CamelvGroovy();
+		CamelvGroovyEntity camelvGroovy = new CamelvGroovyEntity();
 		if (!StringUtils.isBlank(id)) {
 			camelvGroovy = camelvGroovyService.findByDataId(id);
 		}
@@ -68,7 +66,7 @@ public class CamelvGroovyController extends BaseController {
 	public String delete(Model model, RedirectAttributes redirectAttributes, String id) {
 		logger.info("删除  id = " + id);
 		ResponseData rd = null;
-		CamelvGroovyEntity camelvGroovy = new CamelvGroovy();
+		CamelvGroovyEntity camelvGroovy = new CamelvGroovyEntity();
 		try {
 			camelvGroovyService.updateSelectiveById(camelvGroovy);
 		} catch (Exception e) {
@@ -83,7 +81,7 @@ public class CamelvGroovyController extends BaseController {
 	}
 
 	@RequestMapping(value = "list")
-	public String find(Model model, Page<CamelvGroovy> page, CamelvGroovy camelvGroovy) {
+	public String find(Model model, CamelvGroovyEntity camelvGroovy) {
 		logger.info("查询  camelvGroovy " + camelvGroovy);
 //		page.setPageSize(Integer.parseInt(Global.getConfig("page.pageSize")));
 //		Page<CamelvGroovy> resultPage = camelvGroovyService.find(page, camelvGroovy);

@@ -1,11 +1,16 @@
 package com.funny.combo.camel.entity;
 
+import com.funny.combo.camel.consts.RouteType;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 public class CamelvRoute implements Serializable {
-
+    /**
+     * 流程id
+     */
+    private String flowId;
     /**
      * 记录该路由后续需要执行的多个路由id
      */
@@ -33,45 +38,65 @@ public class CamelvRoute implements Serializable {
     /**
      *
      */
-    private String dataId;
+    private String routeId;
 
     /**
      * 路由名称
      */
-    private String name;
+    private String routeName;
+    /**
+     * 对应camel的uri
+     */
+    private String uri;
 
     /**
      * 路由类型
+     * @see RouteType
      */
-    private String type;
+    private String routeType;
     /**
      * 路由其他参数json格式
      */
     private String param;
 
-
-    public String getDataId() {
-        return dataId;
+    public String getFlowId() {
+        return flowId;
     }
 
-    public void setDataId(String dataId) {
-        this.dataId = dataId;
+    public void setFlowId(String flowId) {
+        this.flowId = flowId;
     }
 
-    public String getName() {
-        return name;
+    public String getRouteId() {
+        return routeId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
     }
 
-    public String getType() {
-        return type;
+    public String getRouteName() {
+        return routeName;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRouteName(String routeName) {
+        this.routeName = routeName;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public String getRouteType() {
+        return routeType;
+    }
+
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
     }
 
     public String getParam() {

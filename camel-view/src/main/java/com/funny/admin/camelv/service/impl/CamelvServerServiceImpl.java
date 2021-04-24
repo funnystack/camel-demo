@@ -3,7 +3,10 @@ package com.funny.admin.camelv.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.funny.admin.camelv.constant.RouteType;
 import com.funny.admin.camelv.dao.CamelvServerMapper;
-import com.funny.admin.camelv.entity.*;
+import com.funny.admin.camelv.entity.CamelvAreaEntity;
+import com.funny.admin.camelv.entity.CamelvLineEntity;
+import com.funny.admin.camelv.entity.CamelvRouteEntity;
+import com.funny.admin.camelv.entity.CamelvServerEntity;
 import com.funny.admin.camelv.entity.vo.GooflowArea;
 import com.funny.admin.camelv.entity.vo.GooflowLine;
 import com.funny.admin.camelv.entity.vo.GooflowNode;
@@ -13,7 +16,6 @@ import com.funny.admin.camelv.service.ICamelvRouteService;
 import com.funny.admin.camelv.service.ICamelvServerService;
 import com.funny.combo.core.base.BaseMapper;
 import com.funny.combo.core.base.BaseServiceImpl;
-import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,7 +115,7 @@ public class CamelvServerServiceImpl extends BaseServiceImpl<CamelvServerEntity>
     }
 
     @Override
-    public List<CamelvServer> getAll() {
+    public List<CamelvServerEntity> getAll() {
         return null;
     }
 
@@ -121,21 +123,19 @@ public class CamelvServerServiceImpl extends BaseServiceImpl<CamelvServerEntity>
     //pushService.pushCamelvServer(camelvServer);
 
     @Override
-    public List<CamelvRoute> getRoutes(String serverId) {
+    public List<CamelvRouteEntity> getRoutes(String serverId) {
         try {
             List<CamelvRouteEntity> routeEntityList = routeService.getByServerId(serverId);
-            List<CamelvRoute> routeList = Lists.newArrayList();
-            BeanUtils.copyProperties(routeEntityList, routeList);
 
             // 获取服务相关的关系
             List<CamelvLineEntity> lineList = lineService.getByServerId(serverId);
             Map<String, CamelvRouteEntity> routeMap = new HashMap<String, CamelvRouteEntity>();
-            for (CamelvRouteEntity route : routeList) {
+            for (CamelvRouteEntity route : routeEntityList) {
                 routeMap.put(route.getDataId(), route);
             }
             // 记录line.to指向的路由id，且该线是条件关系
             List<String> branchList = new ArrayList<String>();
-            for (CamelvRoute route : routeList) {
+            for (CamelvRouteEntity route : routeEntityList) {
                 // 记录后续路由指定的id
                 List<String> toList = new ArrayList<String>();
                 // 记录条件
@@ -145,7 +145,7 @@ public class CamelvServerServiceImpl extends BaseServiceImpl<CamelvServerEntity>
                 for (CamelvLineEntity line : lineList) {
                     if (line.getFromRouteId().equals(route.getId())) {
                         CamelvRouteEntity camelvRouteEntity = routeMap.get(line.getToRouteId());
-                        CamelvRoute toRoute = new CamelvRoute();
+                        CamelvRouteEntity toRoute = new CamelvRouteEntity();
                         BeanUtils.copyProperties(camelvRouteEntity, toRoute);
                         // 排除异常
                         if (toRoute != null && !RouteType.ROUTE_TYPE_EXCEPTION.equals(toRoute.getType())) {
@@ -156,7 +156,7 @@ public class CamelvServerServiceImpl extends BaseServiceImpl<CamelvServerEntity>
                         }
                         if (toRoute != null && RouteType.ROUTE_TYPE_EXCEPTION.equals(toRoute.getType())) {
                             // 设置关联异常
-                            route.setExceptionId(line.getToRouteId());
+//                            route.setExceptionId(line.getToRouteId());
                         }
                         // 添加条件
                         if (!StringUtils.isBlank(line.getName())) {
@@ -171,28 +171,28 @@ public class CamelvServerServiceImpl extends BaseServiceImpl<CamelvServerEntity>
                         aggregatCount++;
                     }
                 }
-                route.setTo(toList);
-                route.setCondition(condition);
-                route.setAggregat(aggregatCount >= 2);
+//                route.setTo(toList);
+//                route.setCondition(condition);
+//                route.setAggregat(aggregatCount >= 2);
             }
 
             // 排除分支路由聚合聚合不执行问题
-            for (CamelvRoute route : routeList) {
-                if (route.getAggregat()) {// 判断是否分支聚合
-                    // 获取line.from
-                    for (CamelvLineEntity line : lineList) {
-                        if (line.getToRouteId().equals(route.getId())) {
-
-                        }
-                    }
-                }
+            for (CamelvRouteEntity route : routeEntityList) {
+//                if (route.getAggregat()) {// 判断是否分支聚合
+//                    // 获取line.from
+//                    for (CamelvLineEntity line : lineList) {
+//                        if (line.getToRouteId().equals(route.getId())) {
+//
+//                        }
+//                    }
+//                }
             }
-            return routeList;
+            return routeEntityList;
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("获取路由封装好的调用信息失败!!!");
         }
-        return new ArrayList<CamelvRoute>();
+        return new ArrayList<CamelvRouteEntity>();
     }
 
     @Override

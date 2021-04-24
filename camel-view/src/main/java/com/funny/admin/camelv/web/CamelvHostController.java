@@ -1,8 +1,6 @@
 package com.funny.admin.camelv.web;
 
 import com.funny.admin.camelv.constant.Global;
-import com.funny.admin.camelv.constant.Page;
-import com.funny.admin.camelv.entity.CamelvHost;
 import com.funny.admin.camelv.entity.CamelvHostEntity;
 import com.funny.admin.camelv.entity.vo.ResponseData;
 import com.funny.admin.camelv.service.ICamelvHostService;
@@ -79,7 +77,7 @@ public class CamelvHostController extends BaseController {
 	}
 
 	@RequestMapping(value = "list")
-	public String find(Model model, Page<CamelvHost> page, CamelvHost camelvHost) {
+	public String find(Model model,CamelvHostEntity camelvHost) {
 		logger.info("查询  camelvHost " + camelvHost);
 //		page.setPageSize(Integer.parseInt(Global.getConfig("page.pageSize")));
 //		Page<CamelvHost> resultPage = camelvHostService.find(page, camelvHost);

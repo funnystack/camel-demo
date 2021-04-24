@@ -1,7 +1,6 @@
 package com.funny.admin.camelv.service.impl;
 
 import com.funny.admin.camelv.dao.CamelvLineMapper;
-import com.funny.admin.camelv.entity.CamelvLine;
 import com.funny.admin.camelv.entity.CamelvLineEntity;
 import com.funny.admin.camelv.service.ICamelvLineService;
 import com.funny.combo.core.base.BaseMapper;
@@ -29,7 +28,7 @@ public class CamelvLineServiceImpl extends BaseServiceImpl<CamelvLineEntity> imp
     }
 
     @Override
-    public List<CamelvLine> getAll() {
+    public List<CamelvLineEntity> getAll() {
         return null;
     }
 

@@ -1,7 +1,6 @@
 package com.funny.admin.camelv.web;
 
 import com.funny.admin.camelv.constant.Global;
-import com.funny.admin.camelv.entity.CamelvServer;
 import com.funny.admin.camelv.entity.CamelvServerEntity;
 import com.funny.admin.camelv.entity.vo.ResponseData;
 import com.funny.admin.camelv.service.ICamelvRouteService;
@@ -108,7 +107,7 @@ public class CamelvServerController extends BaseController {
     }
 
     @RequestMapping(value = "list")
-    public String find(Model model, CamelvServer camelvServer) {
+    public String find(Model model, CamelvServerEntity camelvServer) {
         logger.info("查询  camelvServer " + camelvServer);
         // 汉化地址
 //		List<CamelvServer> list = resultPage.getList();

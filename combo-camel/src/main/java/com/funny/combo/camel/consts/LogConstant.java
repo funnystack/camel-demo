@@ -1,6 +1,7 @@
 package com.funny.combo.camel.consts;
 
 public class LogConstant {
+
 	/** 日志记录时间 */
 	public static final String LOG_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	public static final String LOG_MESSAGE_ID = "logMessageId";

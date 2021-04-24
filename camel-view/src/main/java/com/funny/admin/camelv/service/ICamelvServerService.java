@@ -1,7 +1,6 @@
 package com.funny.admin.camelv.service;
 
-import com.funny.admin.camelv.entity.CamelvRoute;
-import com.funny.admin.camelv.entity.CamelvServer;
+import com.funny.admin.camelv.entity.CamelvRouteEntity;
 import com.funny.admin.camelv.entity.CamelvServerEntity;
 import com.funny.combo.core.base.BaseService;
 
@@ -14,11 +13,11 @@ public interface ICamelvServerService extends BaseService<CamelvServerEntity> {
      * @param serverId
      * @return
      */
-    List<CamelvRoute> getRoutes(String serverId);
+    List<CamelvRouteEntity> getRoutes(String serverId);
 
     CamelvServerEntity findByDataId(String id);
 
     String getData(String id);
-    List<CamelvServer> getAll();
+    List<CamelvServerEntity> getAll();
 
 }

@@ -4,7 +4,6 @@ import com.funny.admin.camelv.constant.RouteType;
 import com.funny.admin.camelv.entity.CamelvGroovyEntity;
 import com.funny.admin.camelv.entity.CamelvHttpEntity;
 import com.funny.admin.camelv.entity.CamelvRouteEntity;
-import com.funny.admin.camelv.entity.vo.ComponentOption;
 import com.funny.admin.camelv.entity.vo.ResponseData;
 import com.funny.admin.camelv.service.ICamelvGroovyService;
 import com.funny.admin.camelv.service.ICamelvHttpService;

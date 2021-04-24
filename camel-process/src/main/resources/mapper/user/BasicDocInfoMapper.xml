@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.funny.study.camel.user.dao.DocInfoMapper">
+<mapper namespace="com.funny.demo.camel.dao.DocInfoMapper">
   <sql id="Base_Column_List">
     doc_id, doc_user_id, doc_name, doc_biref, doc_create_time
   </sql>
-  <resultMap id="BaseResultMap" type="com.funny.study.camel.user.entity.DocInfoEntity">
+  <resultMap id="BaseResultMap" type="com.funny.demo.camel.entity.DocInfoEntity">
     <id column="doc_id" jdbcType="BIGINT" property="docId" />
     <result column="doc_user_id" jdbcType="BIGINT" property="docUserId" />
     <result column="doc_name" jdbcType="VARCHAR" property="docName" />
@@ -25,7 +25,7 @@
        and doc_create_time = #{docCreateTime,jdbcType=TIMESTAMP}
     </if>
   </sql>
-  <insert id="insertSelective" parameterType="com.funny.study.camel.user.entity.DocInfoEntity">
+  <insert id="insertSelective" parameterType="com.funny.demo.camel.entity.DocInfoEntity">
     insert into doc_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="docId != null">
@@ -62,7 +62,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateSelectiveById" parameterType="com.funny.study.camel.user.entity.DocInfoEntity">
+  <update id="updateSelectiveById" parameterType="com.funny.demo.camel.entity.DocInfoEntity">
     update doc_info
     <set>
       <if test="docUserId != null">
@@ -81,18 +81,18 @@
     where doc_id = #{docId,jdbcType=BIGINT}
   </update>
   <select id="findEntityById" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from doc_info
     where doc_id = #{docId,jdbcType=BIGINT}
   </select>
-  <select id="listByCondition" parameterType="com.funny.study.camel.user.entity.DocInfoEntity" resultMap="BaseResultMap">
-    SELECT 
+  <select id="listByCondition" parameterType="com.funny.demo.camel.entity.DocInfoEntity" resultMap="BaseResultMap">
+    SELECT
     <include refid="Base_Column_List" />
     FROM doc_info where 1 = 1
     <include refid="sql_where_condition" />
   </select>
-  <select id="count" parameterType="com.funny.study.camel.user.entity.DocInfoEntity" resultMap="BaseResultMap">
+  <select id="count" parameterType="com.funny.demo.camel.entity.DocInfoEntity" resultMap="BaseResultMap">
     SELECT count(1) FROM doc_info where 1 = 1
     <include refid="sql_where_condition" />
   </select>

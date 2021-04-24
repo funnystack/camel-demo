@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public class OperateResult<T> implements Serializable {
 
+
     public static final int CODE_SUCCESS = 0;
 
     public static final int CODE_FAILURE = -1;

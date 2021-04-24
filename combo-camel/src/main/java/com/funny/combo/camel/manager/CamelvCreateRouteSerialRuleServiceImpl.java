@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Deprecated
 public class CamelvCreateRouteSerialRuleServiceImpl implements ICamelvCreateRouteRuleService {
 
 
@@ -24,7 +25,7 @@ public class CamelvCreateRouteSerialRuleServiceImpl implements ICamelvCreateRout
         // 将路由集合转为map集合
         Map<String, CamelvRoute> routeMap = new HashMap<String, CamelvRoute>();
         for (CamelvRoute r : routes) {
-            routeMap.put(r.getDataId(), r);
+            routeMap.put(r.getRouteId(), r);
         }
         // 将所有的路由关系转为map,key:from,value:to的集合
         Map<String, String> lineMap = new HashMap<String, String>();
@@ -36,7 +37,7 @@ public class CamelvCreateRouteSerialRuleServiceImpl implements ICamelvCreateRout
         rule.append("\n<routes xmlns=" + "\"http://camel.apache.org/schema/spring\"" + ">");
         // 遍历路由，开始生成规则
         for (CamelvRoute route : routes) {
-            String type = route.getType();
+            String type = route.getRouteType();
             if (RouteType.ROUTE_TYPE_GROOVY.equals(type)) {
                 rule.append(createGroovyRoute(route, lineMap));
             } else if (RouteType.ROUTE_TYPE_HTTP.equals(type)) {
@@ -48,14 +49,14 @@ public class CamelvCreateRouteSerialRuleServiceImpl implements ICamelvCreateRout
 
     public String createJettyRoute(CamelvRoute route, Map<String, String> lineMap) {
         StringBuffer sb = new StringBuffer("");
-        sb.append("\n\t<route id=\"route-" + route.getDataId() + "\">");
+        sb.append("\n\t<route id=\"route-" + route.getRouteId() + "\">");
         sb.append("\n\t\t<description>This is an  jetty  route.</description>");
-        String uri = "jetty://http://{{jetty.url}}/" + route.getName();
+        String uri = "jetty://http://{{jetty.url}}/" + route.getRouteName();
         sb.append("\n\t\t<from uri=\"" + uri + "\"/>");
         sb.append("\n\t\t<removeHeaders pattern=\"CamelHttpUri\"/>");
         sb.append(createOnException());
 
-        String nextUri = "direct:camelv" + lineMap.get(route.getDataId());
+        String nextUri = "direct:camelv" + lineMap.get(route.getRouteId());
         sb.append("\n\t\t<to uri=\"" + nextUri + "\"/>");
         sb.append("\n\t</route>");
         return sb.toString();
@@ -63,18 +64,18 @@ public class CamelvCreateRouteSerialRuleServiceImpl implements ICamelvCreateRout
 
     public String createHttpRoute(CamelvRoute route, Map<String, String> lineMap) {
         StringBuffer sb = new StringBuffer("");
-        sb.append("\n\t<route id=\"route-" + route.getDataId() + "\">");
+        sb.append("\n\t<route id=\"route-" + route.getRouteId() + "\">");
         sb.append("\n\t\t<description>This is an  http  route.</description>");
-        String uri = "direct:camelv" + route.getDataId();
+        String uri = "direct:camelv" + route.getRouteId();
         sb.append("\n\t\t<from uri=\"" + uri + "\"/>");
         sb.append(createOnException());
-        sb.append("\n\t\t<to uri=\"before:http?routeId=" + route.getDataId() + "\" />");
+        sb.append("\n\t\t<to uri=\"before:http?routeId=" + route.getRouteId() + "\" />");
         // 动态指定地址
         sb.append("\n\t\t<routingSlip ignoreInvalidEndpoints=\"true\">");
         sb.append("\n\t\t\t<simple>${property.nextUrl}</simple>");
         sb.append("\n\t\t</routingSlip>");
-        if (lineMap.get(route.getDataId()) != null) {
-            String nextUri = "direct:camelv" + lineMap.get(route.getDataId());
+        if (lineMap.get(route.getRouteId()) != null) {
+            String nextUri = "direct:camelv" + lineMap.get(route.getRouteId());
             sb.append("\n\t\t<to uri=\"" + nextUri + "\"/>");
         }
         sb.append("\n\t</route>");
@@ -83,16 +84,16 @@ public class CamelvCreateRouteSerialRuleServiceImpl implements ICamelvCreateRout
 
     public String createGroovyRoute(CamelvRoute route, Map<String, String> lineMap) {
         StringBuffer sb = new StringBuffer("");
-        sb.append("\n\t<route id=\"route-" + route.getDataId() + "\">");
+        sb.append("\n\t<route id=\"route-" + route.getRouteId() + "\">");
         sb.append("\n\t\t<description>This is an  groovy  route.</description>");
-        String uri = "direct:camelv" + route.getDataId();
+        String uri = "direct:camelv" + route.getRouteId();
         sb.append("\n\t\t<from uri=\"" + uri + "\"/>");
         sb.append(createOnException());
         // 指定groovy
-        uri = "groovy:vm?routeId=" + route.getDataId();
+        uri = "groovy:vm?routeId=" + route.getRouteId();
         sb.append("\n\t\t<to uri=\"" + uri + "\"/>");
-        if (lineMap.get(route.getDataId()) != null) {
-            String nextUri = "direct:camelv" + lineMap.get(route.getDataId());
+        if (lineMap.get(route.getRouteId()) != null) {
+            String nextUri = "direct:camelv" + lineMap.get(route.getRouteId());
             sb.append("\n\t\t<to uri=\"" + nextUri + "\"/>");
         }
         sb.append("\n\t</route>");
@@ -102,7 +103,7 @@ public class CamelvCreateRouteSerialRuleServiceImpl implements ICamelvCreateRout
     public String createNextUri(CamelvRoute route, Map<String, List<String>> lineMap) {
         StringBuffer sb = new StringBuffer("");
         // 路由后面是否具有其他路由
-        List<String> list = lineMap.get(route.getDataId());
+        List<String> list = lineMap.get(route.getRouteId());
         if (list == null || list.size() == 0) {
             return sb.toString();
         }

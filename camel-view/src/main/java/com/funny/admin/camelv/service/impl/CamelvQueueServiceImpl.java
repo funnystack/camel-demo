@@ -1,7 +1,6 @@
 package com.funny.admin.camelv.service.impl;
 
 import com.funny.admin.camelv.dao.CamelvQueueMapper;
-import com.funny.admin.camelv.entity.CamelvQueue;
 import com.funny.admin.camelv.entity.CamelvQueueEntity;
 import com.funny.admin.camelv.service.ICamelvQueueService;
 import com.funny.combo.core.base.BaseMapper;
@@ -27,7 +26,7 @@ public class CamelvQueueServiceImpl extends BaseServiceImpl<CamelvQueueEntity> i
     }
 
     @Override
-    public List<CamelvQueue> getAll() {
+    public List<CamelvQueueEntity> getAll() {
         return null;
     }
     //			pushDataService.pushCamelvQueue(camelvQueue);

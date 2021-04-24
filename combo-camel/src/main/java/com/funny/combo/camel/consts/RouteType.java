@@ -8,5 +8,6 @@ public class RouteType {
 	/** http类型 */
 	public static final String ROUTE_TYPE_HTTP = "http";
 	/** bean类型 */
+
 	public static final String ROUTE_TYPE_BEAN = "bean";
 }

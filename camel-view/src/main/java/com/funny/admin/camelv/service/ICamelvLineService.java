@@ -1,6 +1,5 @@
 package com.funny.admin.camelv.service;
 
-import com.funny.admin.camelv.entity.CamelvLine;
 import com.funny.admin.camelv.entity.CamelvLineEntity;
 import com.funny.combo.core.base.BaseService;
 
@@ -13,5 +12,5 @@ import java.util.List;
  */
 public interface ICamelvLineService extends BaseService<CamelvLineEntity> {
     List<CamelvLineEntity> getByServerId(String serverId);
-    List<CamelvLine> getAll();
+    List<CamelvLineEntity> getAll();
 }

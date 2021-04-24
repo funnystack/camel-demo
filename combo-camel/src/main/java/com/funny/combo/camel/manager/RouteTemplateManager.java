@@ -21,7 +21,7 @@ public class RouteTemplateManager {
 
     static {
         try {
-            String path = RouteTemplateManager.class.getResource("").getFile() + File.separator + "template";
+            String path = Thread.currentThread().getContextClassLoader().getResource("routetemplate").getPath();
             cfg.setDefaultEncoding("UTF-8");
             cfg.setDirectoryForTemplateLoading(new File(path));
         } catch (Exception e) {
@@ -40,18 +40,23 @@ public class RouteTemplateManager {
 
         Map<String, String> model = new HashMap<>();
         model.put("routePreffix", Constant.PREFFIX_ROUTE_ID);
-        model.put("routeId", route.getDataId() + "");
-//		model.put("routeUri", route.getUri());
-        model.put("routeFromUri", Constant.DIRECT + Constant.PREFFIX_ROUTE_FROM_URI + route.getDataId());
-        model.put("routeType", route.getType());
+        model.put("routeId", route.getRouteId() + "");
+		model.put("routeUri", route.getUri());
+        model.put("routeFromUri", Constant.DIRECT + Constant.PREFFIX_ROUTE_FROM_URI + route.getRouteId());
+        model.put("routeType", route.getRouteType());
         model.put("propertyType", "${property.type}");
         model.put("propertyNextUri", "${property." + Constant.NEXT_URI + "}");
-        model.put("propertyPersistSwitch", "${property.persistSwitch}");
+        model.put("propertyPersistSwitch", "false");
 
         String routeRule = "";
-        String type = route.getType();
+        String type = route.getRouteType();
         try {
-            if (RouteType.ROUTE_TYPE_GROOVY.equals(type)) {
+            if (RouteType.ROUTE_TYPE_BEAN.equals(type)) {
+                /** bean路由模板设置 */
+                Template template = cfg.getTemplate("bean.ftl");
+                routeRule = FreeMarkers.renderTemplate(template, model);
+            }
+            else if (RouteType.ROUTE_TYPE_GROOVY.equals(type)) {
                 /** groovy路由模板设置 */
                 Template template = cfg.getTemplate("groovy.ftl");
                 routeRule = FreeMarkers.renderTemplate(template, model);
@@ -72,12 +77,5 @@ public class RouteTemplateManager {
         return routeRule;
     }
 
-    public static void main(String[] args) {
-        CamelvRoute route = new CamelvRoute();
-        // route.setType(Constant.ROUTE_TYPE_HTTP);
-        // route.setType(Constant.ROUTE_TYPE_JETTY);
-        route.setType(RouteType.ROUTE_TYPE_GROOVY);
-        String rule2 = createRule(route);
-        System.out.println(rule2);
-    }
+
 }

@@ -1,7 +1,6 @@
 package com.funny.admin.camelv.service.impl;
 
 import com.funny.admin.camelv.dao.CamelvMailMapper;
-import com.funny.admin.camelv.entity.CamelvMail;
 import com.funny.admin.camelv.entity.CamelvMailEntity;
 import com.funny.admin.camelv.service.ICamelvMailService;
 import com.funny.combo.core.base.BaseMapper;
@@ -30,7 +29,7 @@ public class CamelvMailServiceImpl extends BaseServiceImpl<CamelvMailEntity> imp
     }
 
     @Override
-    public List<CamelvMail> getAll() {
+    public List<CamelvMailEntity> getAll() {
         return null;
     }
 }

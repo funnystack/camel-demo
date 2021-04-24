@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 /**
  * 对应camel的Component Options选项<br/>
- * 
+ *
  * @author xiaoka
  *
  */
 public class ComponentOption implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 11111111L;
 	private String name;// 参数名称

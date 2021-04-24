@@ -1,7 +1,6 @@
 package com.funny.admin.camelv.web;
 
 import com.funny.admin.camelv.constant.Global;
-import com.funny.admin.camelv.entity.CamelvMail;
 import com.funny.admin.camelv.entity.CamelvMailEntity;
 import com.funny.admin.camelv.entity.vo.ResponseData;
 import com.funny.admin.camelv.service.ICamelvMailService;
@@ -78,7 +77,7 @@ public class CamelvMailController extends BaseController {
 	}
 
 	@RequestMapping(value = "list")
-	public String find(Model model, CamelvMail camelvMail) {
+	public String find(Model model, CamelvMailEntity camelvMail) {
 		logger.info("查询  camelvMail " + camelvMail);
 //		page.setPageSize(Integer.parseInt(Global.getConfig("page.pageSize")));
 //		Page<CamelvMail> resultPage = camelvMailService.find(page, camelvMail);

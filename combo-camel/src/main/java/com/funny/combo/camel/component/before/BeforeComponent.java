@@ -15,7 +15,7 @@ public class BeforeComponent extends DefaultComponent {
 	protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
 
 		BeforeEndpoint beforeEndpoint = new BeforeEndpoint(uri, this, remaining);
-		
+
 		return beforeEndpoint;
 	}
 

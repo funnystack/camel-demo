@@ -1,7 +1,5 @@
 package com.funny.admin.camelv.web;
 
-import com.funny.admin.camelv.constant.Page;
-import com.funny.admin.camelv.entity.CamelvServerLog;
 import com.funny.admin.camelv.entity.CamelvServerLogEntity;
 import com.funny.admin.camelv.service.CamelvServerLogService;
 import org.slf4j.Logger;
@@ -25,12 +23,11 @@ public class CamelvServerLogController extends BaseController {
      * 日志查询
      *
      * @param model
-     * @param page
      * @param camelvServerLog
      * @return
      */
     @RequestMapping(value = "list")
-    public String find(Model model, Page<CamelvServerLog> page, CamelvServerLog camelvServerLog) {
+    public String find(Model model, CamelvServerLogEntity camelvServerLog) {
         logger.info("查询日志 " + camelvServerLog);
         model.addAttribute("camelvLog", camelvServerLog);
         return "modules/camelv/log/list";

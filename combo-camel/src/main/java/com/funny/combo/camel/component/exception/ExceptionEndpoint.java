@@ -5,7 +5,6 @@ import com.funny.combo.camel.consts.LogConstant;
 import org.apache.camel.Component;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.ResourceEndpoint;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

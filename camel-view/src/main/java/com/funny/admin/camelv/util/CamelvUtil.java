@@ -1,6 +1,5 @@
 package com.funny.admin.camelv.util;
 
-import com.funny.admin.camelv.entity.vo.ComponentOption;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -17,7 +16,7 @@ import java.util.List;
 
 /**
  * 常用工具类<br/>
- * 
+ *
  * @author xiaoka
  *
  */
@@ -27,7 +26,7 @@ public class CamelvUtil {
 
 	/**
 	 * 将给定的组件参数解析为list集合
-	 * 
+	 *
 	 * @param option
 	 * @return
 	 */
@@ -53,7 +52,7 @@ public class CamelvUtil {
 
 	/**
 	 * 在原来的参数上添加新的参数，同时指定分隔符
-	 * 
+	 *
 	 * @param oldParam
 	 * @param newParam
 	 * @param split
@@ -83,7 +82,7 @@ public class CamelvUtil {
 
 	/**
 	 * 解析tomcat端口
-	 * 
+	 *
 	 * @param filePath
 	 * @return
 	 */
@@ -145,7 +144,7 @@ public class CamelvUtil {
 
 	/**
 	 * 获取ip地址
-	 * 
+	 *
 	 * @return
 	 */
 	public static String getLocalIp() {

@@ -2,7 +2,6 @@ package com.funny.admin.camelv.web;
 
 import com.funny.admin.camelv.constant.Global;
 import com.funny.admin.camelv.constant.Page;
-import com.funny.admin.camelv.entity.CamelvJdbc;
 import com.funny.admin.camelv.entity.CamelvJdbcEntity;
 import com.funny.admin.camelv.entity.vo.ResponseData;
 import com.funny.admin.camelv.service.ICamelvJdbcService;
@@ -79,7 +78,7 @@ public class CamelvJdbcController extends BaseController {
     }
 
     @RequestMapping(value = "list")
-    public String find(Model model, Page<CamelvJdbc> page, CamelvJdbc camelvJdbc) {
+    public String find(Model model,CamelvJdbcEntity camelvJdbc) {
         logger.info("查询  camelvJdbc " + camelvJdbc);
 //		page.setPageSize(Integer.parseInt(Global.getConfig("page.pageSize")));
 //		Page<CamelvJdbc> resultPage = camelvJdbcService.find(page, camelvJdbc);
