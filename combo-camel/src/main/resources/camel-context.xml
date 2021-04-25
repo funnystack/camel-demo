@@ -11,13 +11,13 @@
 <!--          class="com.funny.combo.camel.component.ParallelAggregationStrategy" />-->
     <!-- setup our error handler as the deal letter channel -->
     <bean id="errorHandler" class="org.apache.camel.builder.DeadLetterChannelBuilder">
-        <property name="deadLetterUri" value="direct:exception" />
+        <property name="deadLetterUri" value="log:dead?level=ERROR" />
     </bean>
 
     <camelContext id="camelContext" xmlns="http://camel.apache.org/schema/spring">
         <!-- 心跳检测 -->
         <route>
-            <from uri="timer:heart.beat?period=5000" />
+            <from uri="timer:heart.beat?period=50000" />
             <camel:bean ref="heartBeat" method="heartbeat" />
         </route>
 

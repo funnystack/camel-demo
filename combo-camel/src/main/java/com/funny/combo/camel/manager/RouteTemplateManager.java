@@ -40,9 +40,9 @@ public class RouteTemplateManager {
 
         Map<String, String> model = new HashMap<>();
         model.put("routePreffix", Constant.PREFFIX_ROUTE_ID);
-        model.put("routeId", route.getRouteId() + "");
-		model.put("routeUri", route.getUri());
-        model.put("routeFromUri", Constant.DIRECT + Constant.PREFFIX_ROUTE_FROM_URI + route.getRouteId());
+        model.put("routeId", route.getRouteId());
+        model.put("routeUri", route.getUri());
+        model.put("routeFromUri", Constant.DIRECT + Constant.PREFFIX_ROUTE_ID + route.getRouteId());
         model.put("routeType", route.getRouteType());
         model.put("propertyType", "${property.type}");
         model.put("propertyNextUri", "${property." + Constant.NEXT_URI + "}");

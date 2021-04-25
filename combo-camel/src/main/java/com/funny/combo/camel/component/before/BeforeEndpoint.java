@@ -5,6 +5,7 @@ import com.funny.combo.camel.consts.Constant;
 import com.funny.combo.camel.consts.LogConstant;
 import com.funny.combo.camel.consts.RouteType;
 import com.funny.combo.camel.context.CamelvContext;
+import com.funny.combo.camel.entity.CamelvBean;
 import com.funny.combo.camel.entity.CamelvRoute;
 import com.funny.combo.camel.entity.ComponentOption;
 import org.apache.camel.Component;
@@ -43,63 +44,25 @@ public class BeforeEndpoint extends ResourceEndpoint {
         logger.info("执行 before, type = " + getResourceUri() + " , exchangeId = " + exchange.getExchangeId());
         String type = getResourceUri();
         CamelvRoute route = CamelvContext.getCamelvRoute(routeId);
-        /** 路由被删除了 */
         if (route == null) {
             exchange.setProperty(Constant.ROUTE_STATE, RouteState.ROUTE_DELETED);
             throw new Exception("该路由资源被删除了,该路由应该从camel中删除的,routeId=" + routeId);
         }
-        /** 权限验证 */
-        permissionValidation(exchange, route);
-        /**
-         * 思路:<br/>
-         * 根据不同路由类型，动态拼接该路由需要执行的uri
-         */
+        // 根据不同路由类型，动态拼接该路由需要执行的uri
         if (RouteType.ROUTE_TYPE_HTTP.equals(type)) {
-            /**
-             * 执行http路由，动态设置需要执行的地址<br/>
-             */
             beforeRunHttp(exchange, route);
-        } else if (RouteType.ROUTE_TYPE_GROOVY.equals(type)) {
+        }
+        else if (RouteType.ROUTE_TYPE_GROOVY.equals(type)) {
             beforeRunGroovy(exchange, route);
         }
-        /** 设置预处理参数 */
-        setBeforeOption(exchange, route);
-
+        else if (RouteType.ROUTE_TYPE_BEAN.equals(type)) {
+            beforeRunBean(exchange, route);
+        }
+        setBeforeOption(exchange, route);// 设置预处理参数
         exchange.setOut(exchange.getIn());
     }
 
-    /**
-     * 权限验证
-     *
-     * @param exchange
-     * @return
-     * @throws Exception
-     */
-    private void permissionValidation(Exchange exchange, CamelvRoute route) throws Exception {
-        try {
-            String permissionValidationSwitch = "camelv.permission.validation.switch";
-            if (!"true".equals(permissionValidationSwitch)) {
-                /** 不做权限验证 */
-                return;
-            }
-            String permissionHeader = "camelv.permission.header.name";
-            String authCodeHeader = exchange.getIn().getHeader(permissionHeader, String.class);
-            if (authCodeHeader == null) {
-                exchange.setProperty(Constant.ROUTE_STATE, RouteState.PERMISSION_ERROR);
-                throw new Exception("未携带授权码!");
-            }
-//            CamelvServer server = CamelvContext.getCamelvServer(route.getServerId());
-//            String cacheAuthCode = server.getAuthCode();
-//            if (!authCodeHeader.equals(cacheAuthCode)) {
-//                exchange.setProperty(Constant.ROUTE_STATE, RouteState.PERMISSION_ERROR);
-//                throw new Exception("授权码不匹配!");
-//            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            exchange.setProperty(Constant.ROUTE_STATE, RouteState.PERMISSION_ERROR);
-            throw new Exception("权限验证失败!");
-        }
-    }
+
 
     /**
      * 设置参数
@@ -119,20 +82,10 @@ public class BeforeEndpoint extends ResourceEndpoint {
                 }
             }
         }
-    }
-
-    /**
-     * 开始执行jetty路由
-     *
-     * @param exchange
-     * @param route
-     * @throws Exception
-     */
-    private void startJetty(Exchange exchange, CamelvRoute route) throws Exception {
         // 是否开启持久化
-        String persistSwitch = "camelv.persist.switch";
+        boolean persistSwitch = false;
         String oldBody = exchange.getIn().getBody(String.class);
-        if ("true".equals(persistSwitch)) {
+        if (persistSwitch) {
             /** 开启持久化 */
             exchange.setProperty("serverId", "serverId");
             logger.info("入口报文:\n" + oldBody);
@@ -144,7 +97,6 @@ public class BeforeEndpoint extends ResourceEndpoint {
             exchange.setProperty(LogConstant.LOG_SERVER_START_TIME, sdf.format(new Date()));
             exchange.setProperty(LogConstant.LOG_SERVER_STATUS, "0");
             exchange.setProperty(LogConstant.LOG_SERVER_NAME, name);
-            Map<String, Object> headers = exchange.getIn().getHeaders();
             StringBuffer hd = new StringBuffer("");
             Set<Entry<String, Object>> entrySet = headers.entrySet();
             for (Entry<String, Object> entry : entrySet) {
@@ -159,6 +111,7 @@ public class BeforeEndpoint extends ResourceEndpoint {
             exchange.setProperty(Constant.PERSIST_SWITCH, persistSwitch);
         }
         exchange.getIn().setBody(oldBody, String.class);
+
     }
 
     /**
@@ -184,6 +137,31 @@ public class BeforeEndpoint extends ResourceEndpoint {
         // 资源找到了，那么就需要执行
         exchange.setProperty(Constant.NEXT_URI, "url");
         logger.info("下一个路由地址:" + "url");
+    }
+
+    /**
+     * 动态配置http信息
+     *
+     * @param exchange
+     * @param route
+     * @throws Exception
+     */
+    private void beforeRunBean(Exchange exchange, CamelvRoute route) throws Exception {
+        // 去除不需要的头
+        exchange.getIn().removeHeader(Exchange.BEAN_METHOD_NAME);
+        if (StringUtils.isBlank(route.getUri())) {
+            exchange.setProperty(Constant.ROUTE_STATE, RouteState.RESOURCE_NOT_CONFIG);
+            throw new Exception("未配置bean资源");
+        }
+        // 获取关联的http信息
+        CamelvBean camelvBean = CamelvContext.getCamelvBean(route.getRouteId());
+        if (camelvBean == null) {
+            exchange.setProperty(Constant.ROUTE_STATE, RouteState.RESOURCE_NOT_FOUND);
+            throw new Exception("路由关联的http资源找不到了");
+        }
+        // 资源找到了，那么就需要执行
+        exchange.setProperty(Constant.NEXT_URI, route.getUri());
+        logger.info("下一个路由地址:" + route.getUri());
     }
 
     /**

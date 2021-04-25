@@ -26,7 +26,7 @@ public class CamelvRoute implements Serializable {
     /**
      * 记录是否是聚合路由
      */
-    private Boolean aggregat;
+    private boolean aggregat;
     /**
      * 关联的异常路由id
      */
@@ -51,6 +51,7 @@ public class CamelvRoute implements Serializable {
 
     /**
      * 路由类型
+     *
      * @see RouteType
      */
     private String routeType;
@@ -131,11 +132,11 @@ public class CamelvRoute implements Serializable {
         this.condition = condition;
     }
 
-    public Boolean getAggregat() {
-        return aggregat;
+    public boolean getAggregat() {
+        return aggregat ;
     }
 
-    public void setAggregat(Boolean aggregat) {
+    public void setAggregat(boolean aggregat) {
         this.aggregat = aggregat;
     }
 

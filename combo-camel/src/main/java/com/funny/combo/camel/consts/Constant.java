@@ -36,9 +36,6 @@ public interface Constant {
 	/** 默认contentType类型 */
 	public static final String CONTENT_TYPE = "text/plain";
 
-	// 前缀
-	/** 消费者路由<from uri="">前缀 */
-	public static final String PREFFIX_ROUTE_FROM_URI = "camelv";
 	/** 自定义路由id前缀 */
 	public static final String PREFFIX_ROUTE_ID = "route-";
 	/** 路由direct */

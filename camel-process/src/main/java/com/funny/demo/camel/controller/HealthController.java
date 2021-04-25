@@ -52,7 +52,7 @@ public class HealthController {
     @GetMapping("/health/bean")
     public String bean() {
         ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
-        producerTemplate.sendBody("direct:camelvbean1", "123456");
+        producerTemplate.sendBody("direct:route-bean1", "123456");
         return "ok";
     }
 }

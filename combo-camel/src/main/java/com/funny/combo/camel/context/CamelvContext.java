@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -40,7 +41,7 @@ public class CamelvContext {
     /**
      * 记录bean信息，key:id,value：实体对象
      */
-    private static ConcurrentMap<String, CamelvBean> camelBeanMap = new ConcurrentHashMap<String, CamelvBean>();
+    private static ConcurrentMap<String, CamelvBean> camelvBeanMap = new ConcurrentHashMap<String, CamelvBean>();
 
     /**
      * 记录direct信息，key:id,value：实体对象
@@ -77,7 +78,7 @@ public class CamelvContext {
      * @param id
      */
     public static void deleteCamelvBean(String id) {
-        camelBeanMap.remove(id);
+        camelvBeanMap.remove(id);
     }
 
     /**
@@ -169,6 +170,16 @@ public class CamelvContext {
     }
 
     /**
+     * 根据id获取内存中缓存的对象
+     *
+     * @param id
+     * @return
+     */
+    public static CamelvBean getCamelvBean(String id) {
+        return camelvBeanMap.get(id);
+    }
+
+    /**
      * 添加对象到内存中
      *
      * @param camelvHttp
@@ -183,7 +194,7 @@ public class CamelvContext {
      * @param camelvBean
      */
     public static void addCamelvBean(CamelvBean camelvBean) {
-        camelBeanMap.put(camelvBean.getDataId(), camelvBean);
+        camelvBeanMap.put(camelvBean.getDataId(), camelvBean);
         addCamelvRoute4Bean(camelvBean);
     }
 
@@ -233,6 +244,20 @@ public class CamelvContext {
         route.setRouteId(camelvBean.getDataId());
         route.setRouteType(RouteType.ROUTE_TYPE_BEAN);
         route.setRouteName(camelvBean.getBeanName());
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("bean:");
+        stringBuilder.append(camelvBean.getBeanName());
+        stringBuilder.append("?method="+camelvBean.getMethodName());
+        if(!CollectionUtils.isEmpty(camelvBean.getOptionList())){
+            for(ComponentOption componentOption : camelvBean.getOptionList()){
+                stringBuilder.append("&");
+                stringBuilder.append(componentOption.getName());
+                stringBuilder.append("=");
+                stringBuilder.append(componentOption.getValue());
+            }
+        }
+        route.setUri(stringBuilder.toString());
         camelvRouteMap.put(camelvBean.getDataId(), route);
     }
 
