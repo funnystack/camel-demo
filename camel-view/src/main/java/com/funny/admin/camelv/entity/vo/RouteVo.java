@@ -1,5 +1,6 @@
 package com.funny.admin.camelv.entity.vo;
 
+import com.funny.combo.camel.entity.ComponentOption;
 import com.funny.combo.core.base.BaseEntity;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Map;
 /**
  * 非持久化的其他属性
  * 
- * @author xiaoka
+ * @author fangli
  *
  */
 public class RouteVo extends BaseEntity {

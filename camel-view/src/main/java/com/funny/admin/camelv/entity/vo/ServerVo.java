@@ -5,7 +5,7 @@ import com.funny.combo.core.base.BaseEntity;
 /**
  * 非持久化的其他属性
  * 
- * @author xiaoka
+ * @author fangli
  *
  */
 public class ServerVo extends BaseEntity {

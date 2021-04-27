@@ -1,6 +1,6 @@
 package com.funny.combo.camel.component.next;
 
-import com.funny.combo.camel.component.exception.RouteState;
+import com.funny.combo.camel.component.exception.RouteErrorCode;
 import com.funny.combo.camel.consts.Constant;
 import com.funny.combo.camel.context.CamelvContext;
 import com.funny.combo.camel.entity.CamelvRoute;
@@ -19,7 +19,7 @@ import java.util.List;
  * URI Format格式<br/>
  * next:routeType?routeId=XXX<br/>
  *
- * @author xiaoka
+ * @author fangli
  *
  */
 public class NextEndpoint extends ResourceEndpoint {
@@ -36,13 +36,12 @@ public class NextEndpoint extends ResourceEndpoint {
 	@Override
 	protected void onExchange(Exchange exchange) throws Exception {
 		logger.info("设置下一个路由地址,type = " + getResourceUri() + ",exchangeId = " + exchange.getExchangeId());
-		/** 获取路由类型 */
 		String routeType = getResourceUri();
 		// 获取下一个路由地址
 		String nextUri = "", type = "";
 		CamelvRoute route = CamelvContext.getCamelvRoute(routeId);
 		if (route == null) {
-			exchange.setProperty(Constant.ROUTE_STATE, RouteState.ROUTE_DELETED);
+			exchange.setProperty(Constant.ROUTE_STATE, RouteErrorCode.ROUTE_DELETED);
 			throw new Exception("路由已经被删除,id = " + routeId);
 		}
 		/** 获取该路由的后续路由id信息，根据该id集合个数来判断执行策略 */
@@ -84,13 +83,13 @@ public class NextEndpoint extends ResourceEndpoint {
 //			String condition = exchange.getIn().getHeader(conditonKey, String.class);
 //			/** 保证分支携带了条件 */
 //			if (StringUtils.isBlank(condition)) {
-//				exchange.setProperty(Constant.ROUTE_STATE, RouteState.CONDITION_IS_NULL);
+//				exchange.setProperty(Constant.ROUTE_STATE, RouteErrorCode.CONDITION_IS_NULL);
 //				throw new Exception("分支路由执行时条件为空");
 //			}
 //			/** 进行条件匹配 */
 //			Map<String, String> conditionMap = route.getCondition();
 //			if (conditionMap.get(condition) == null) {
-//				exchange.setProperty(Constant.ROUTE_STATE, RouteState.CONDITION_NOT_MATCH);
+//				exchange.setProperty(Constant.ROUTE_STATE, RouteErrorCode.CONDITION_NOT_MATCH);
 //				throw new Exception("分支路由条件匹配失败");
 //			}
 //			/** 这里用于在聚合时判断使用 */

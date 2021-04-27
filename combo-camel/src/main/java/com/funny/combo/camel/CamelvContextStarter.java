@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author xiaoka
+ * @author fangli
  */
 @Component
 public class CamelvContextStarter implements ApplicationContextAware {

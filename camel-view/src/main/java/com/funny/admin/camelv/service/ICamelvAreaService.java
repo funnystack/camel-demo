@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 操作工作区业务类
  *
- * @author xiaoka
+ * @author fangli
  */
 public interface ICamelvAreaService extends BaseService<CamelvAreaEntity> {
 

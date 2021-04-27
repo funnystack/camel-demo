@@ -1,6 +1,6 @@
 package com.funny.combo.camel.entity;
 
-import com.funny.combo.camel.consts.RouteType;
+import com.funny.combo.camel.consts.RouteTypeEnum;
 
 import java.io.Serializable;
 import java.util.List;
@@ -52,7 +52,7 @@ public class CamelvRoute implements Serializable {
     /**
      * 路由类型
      *
-     * @see RouteType
+     * @see RouteTypeEnum
      */
     private String routeType;
     /**

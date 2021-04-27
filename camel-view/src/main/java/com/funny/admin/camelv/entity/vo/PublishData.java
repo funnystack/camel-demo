@@ -3,7 +3,7 @@ package com.funny.admin.camelv.entity.vo;
 /**
  * 发布时将数据填充
  * 
- * @author xiaoka
+ * @author fangli
  *
  */
 public class PublishData {

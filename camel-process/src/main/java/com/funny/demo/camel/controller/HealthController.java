@@ -1,7 +1,8 @@
 package com.funny.demo.camel.controller;
 
-import com.funny.demo.camel.service.CamelTranService;
+import com.alibaba.fastjson.JSON;
 import com.funny.demo.camel.entity.UserWxInfoEntity;
+import com.funny.demo.camel.service.CamelTranService;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -53,6 +56,15 @@ public class HealthController {
     public String bean() {
         ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
         producerTemplate.sendBody("direct:route-bean1", "123456");
+        return "ok";
+    }
+
+    @GetMapping("/health/rpc")
+    public String http() {
+        ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
+        Map<String, String> paraMap = new HashMap<>();
+        paraMap.put("docId", "123456");
+        producerTemplate.sendBody("direct:route-http1", JSON.toJSONString(paraMap));
         return "ok";
     }
 }

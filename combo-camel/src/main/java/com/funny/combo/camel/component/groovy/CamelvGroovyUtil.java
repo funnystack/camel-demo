@@ -1,6 +1,6 @@
 package com.funny.combo.camel.component.groovy;
 
-import com.funny.combo.camel.component.exception.RouteState;
+import com.funny.combo.camel.component.exception.RouteErrorCode;
 import com.funny.combo.camel.consts.Constant;
 import com.funny.combo.camel.context.CamelvContext;
 import com.funny.combo.camel.entity.CamelvGroovy;
@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 执行脚本
  *
- * @author xiaoka
+ * @author fangli
  */
 public class CamelvGroovyUtil {
 
@@ -33,22 +33,22 @@ public class CamelvGroovyUtil {
     public static Object run(Exchange exchange, String routeId) throws Exception {
 //		CamelvRoute route = CamelvContext.getCamelvRoute(routeId);
 //		if (route == null) {
-//			exchange.setProperty(Constant.ROUTE_STATE, RouteState.ROUTE_DELETED);
+//			exchange.setProperty(Constant.ROUTE_STATE, RouteErrorCode.ROUTE_DELETED);
 //			throw new Exception("该路由资源被删除了,该路由应该从camel中删除的,routeId=" + routeId);
 //		}
 //		String relatedResourceId = route.getRelatedResourceId();
 //		// 是否未配置资源
 //		if (StringUtils.isBlank(route.getRelatedResourceId())) {
-//			exchange.setProperty(Constant.ROUTE_STATE, RouteState.RESOURCE_NOT_CONFIG);
+//			exchange.setProperty(Constant.ROUTE_STATE, RouteErrorCode.RESOURCE_NOT_CONFIG);
 //			throw new Exception("该路由未配置Groovy资源,请先配置,routeId=" + routeId);
 //		}
         CamelvGroovy groovy = CamelvContext.getCamelvGroovy(routeId);
         if (groovy == null) {
-            exchange.setProperty(Constant.ROUTE_STATE, RouteState.RESOURCE_NOT_FOUND);
+            exchange.setProperty(Constant.ROUTE_STATE, RouteErrorCode.RESOURCE_NOT_FOUND);
             throw new Exception("该路由配置的groovy资源找不到,routeId=" + routeId);
         }
         if (StringUtils.isBlank(groovy.getScript())) {
-            exchange.setProperty(Constant.ROUTE_STATE, RouteState.GROOVY_SCRIPT_NULL);
+            exchange.setProperty(Constant.ROUTE_STATE, RouteErrorCode.GROOVY_SCRIPT_NULL);
             throw new Exception("groovy脚本为空,groovy.id=" + groovy.getDataId());
         }
         // 执行脚本
@@ -77,7 +77,7 @@ public class CamelvGroovyUtil {
             return result;
         } catch (Exception e) {
             e.printStackTrace();
-            exchange.setProperty(Constant.ROUTE_STATE, RouteState.GROOVY_SCRIPT_ERROR);
+            exchange.setProperty(Constant.ROUTE_STATE, RouteErrorCode.GROOVY_SCRIPT_ERROR);
             throw new Exception("groovy脚本执行失败,groovy.id=" + groovy.getDataId());
         }
     }

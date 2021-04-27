@@ -3,7 +3,7 @@ package com.funny.admin.camelv.entity.vo;
 /**
  * 数据修改时推送的数据
  * 
- * @author xiaoka
+ * @author fangli
  *
  */
 public class PushData {

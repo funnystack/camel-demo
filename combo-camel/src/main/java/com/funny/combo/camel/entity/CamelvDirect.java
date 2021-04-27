@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * direct资源
  *
- * @author xiaoka
+ * @author fangli
  *
  */
 public class CamelvDirect implements Serializable {

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * URI Format格式<br/>
  * groovy:groovy?routeId=XXX<br/>
  *
- * @author xiaoka
+ * @author fangli
  *
  */
 public class GroovyEndpoint extends ResourceEndpoint {

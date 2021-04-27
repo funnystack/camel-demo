@@ -1,7 +1,7 @@
 package com.funny.combo.camel.manager;
 
 import com.funny.combo.camel.consts.Constant;
-import com.funny.combo.camel.consts.RouteType;
+import com.funny.combo.camel.consts.RouteTypeEnum;
 import com.funny.combo.camel.entity.CamelvRoute;
 import com.funny.combo.camel.utils.FreeMarkers;
 import freemarker.template.Configuration;
@@ -37,7 +37,6 @@ public class RouteTemplateManager {
      * @throws IOException
      */
     public static String createRule(CamelvRoute route) {
-
         Map<String, String> model = new HashMap<>();
         model.put("routePreffix", Constant.PREFFIX_ROUTE_ID);
         model.put("routeId", route.getRouteId());
@@ -47,28 +46,10 @@ public class RouteTemplateManager {
         model.put("propertyType", "${property.type}");
         model.put("propertyNextUri", "${property." + Constant.NEXT_URI + "}");
         model.put("propertyPersistSwitch", "false");
-
         String routeRule = "";
-        String type = route.getRouteType();
         try {
-            if (RouteType.ROUTE_TYPE_BEAN.equals(type)) {
-                /** bean路由模板设置 */
-                Template template = cfg.getTemplate("bean.ftl");
-                routeRule = FreeMarkers.renderTemplate(template, model);
-            }
-            else if (RouteType.ROUTE_TYPE_GROOVY.equals(type)) {
-                /** groovy路由模板设置 */
-                Template template = cfg.getTemplate("groovy.ftl");
-                routeRule = FreeMarkers.renderTemplate(template, model);
-            } else if (RouteType.ROUTE_TYPE_HTTP.equals(type)) {
-                /** http路由模板设置 */
-                Template template = cfg.getTemplate("http.ftl");
-                routeRule = FreeMarkers.renderTemplate(template, model);
-            } else if (RouteType.ROUTE_TYPE_EXCEPTION.equals(type)) {
-                /** exception路由模板设置 */
-                Template template = cfg.getTemplate("exception.ftl");
-                routeRule = FreeMarkers.renderTemplate(template, model);
-            }
+            Template template = cfg.getTemplate(RouteTypeEnum.ROUTE_TYPE_BEAN.getType() + ".ftl");
+            routeRule = FreeMarkers.renderTemplate(template, model);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("根据路由模板创建路由失败!!!");

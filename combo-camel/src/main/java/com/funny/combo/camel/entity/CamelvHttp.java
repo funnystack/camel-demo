@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * http资源
  *
- * @author xiaoka
+ * @author fangli
  *
  */
 public class CamelvHttp implements Serializable {
@@ -23,8 +23,21 @@ public class CamelvHttp implements Serializable {
     /**
      *
      */
-    private String url;
-
+    private String requestUrl;
+    /**
+     * http类型
+     */
+    private String requestType;
+    /**
+     * 请求数据类型
+     * CONTENT_TYPE = "text/plain"
+     * CONTENT_TYPE = "application/json;charset=UTF-8"
+     */
+    private String contentType;
+    /**
+     * 请求参数
+     */
+    private String params;
     /**
      * 备注信息
      */
@@ -46,12 +59,12 @@ public class CamelvHttp implements Serializable {
         return name;
     }
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+    public String getRequestUrl() {
+        return requestUrl;
     }
 
-    public String getUrl() {
-        return url;
+    public void setRequestUrl(String requestUrl) {
+        this.requestUrl = requestUrl;
     }
 
     public void setRemarks(String remarks) {
@@ -60,5 +73,29 @@ public class CamelvHttp implements Serializable {
 
     public String getRemarks() {
         return remarks;
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getParams() {
+        return params;
+    }
+
+    public void setParams(String params) {
+        this.params = params;
     }
 }

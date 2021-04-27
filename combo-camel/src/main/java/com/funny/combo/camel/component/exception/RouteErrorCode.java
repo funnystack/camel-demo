@@ -3,10 +3,10 @@ package com.funny.combo.camel.component.exception;
 /**
  * 路由执行状态<br/>
  *
- * @author xiaoka
+ * @author fangli
  *
  */
-public enum RouteState {
+public enum RouteErrorCode {
 
 	UNKNOWN_EXCEPTION("700", "未知异常", "该异常不在处理范围内!"),
 	ROUTE_DELETED("701", "路由已经被删除","请确定该路由是否被删除!"),
@@ -29,7 +29,7 @@ public enum RouteState {
 	/** 错误描述 */
 	private String desc;
 
-	private RouteState(String code, String msg, String desc) {
+	private RouteErrorCode(String code, String msg, String desc) {
 		this.code = code;
 		this.msg = msg;
 		this.desc = desc;

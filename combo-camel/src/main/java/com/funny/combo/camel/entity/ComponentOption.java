@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 对应camel的Component Options选项<br/>
  *
- * @author xiaoka
+ * @author fangli
  *
  */
 public class ComponentOption implements Serializable {

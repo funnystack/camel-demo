@@ -1,6 +1,6 @@
 package com.funny.combo.camel.context;
 
-import com.funny.combo.camel.consts.RouteType;
+import com.funny.combo.camel.consts.RouteTypeEnum;
 import com.funny.combo.camel.entity.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * 存储camel运行需要的上下文等信息
  *
- * @author xiaoka
+ * @author fangli
  */
 public class CamelvContext {
 
@@ -186,6 +186,7 @@ public class CamelvContext {
      */
     public static void addCamelvHttp(CamelvHttp camelvHttp) {
         camelvHttpMap.put(camelvHttp.getDataId(), camelvHttp);
+        addCamelvRoute4Http(camelvHttp);
     }
 
     /**
@@ -229,24 +230,45 @@ public class CamelvContext {
         BeanUtils.copyProperties(camelvLine, route);
         camelvRouteMap.put(camelvLine.getFlowId(), route);
     }
-
     /**
-     * 添加对象到内存中，改变路由属性时调用
-     *
+     *  初始化http到route
+     * @param camelvHttp
+     */
+    private static void addCamelvRoute4Http(CamelvHttp camelvHttp) {
+        CamelvRoute route = camelvRouteMap.get(camelvHttp.getDataId());
+        if (route == null) {
+            route = new CamelvRoute();
+        }
+        route.setRouteId(camelvHttp.getDataId());
+        route.setRouteType(RouteTypeEnum.ROUTE_TYPE_RPC.getType());
+        route.setRouteName(camelvHttp.getName());
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(RouteTypeEnum.ROUTE_TYPE_RPC.getType());
+        stringBuilder.append(":");
+        stringBuilder.append(camelvHttp.getName());
+        stringBuilder.append("?routeId=");
+        stringBuilder.append(camelvHttp.getDataId());
+        route.setUri(stringBuilder.toString());
+        camelvRouteMap.put(camelvHttp.getDataId(), route);
+    }
+    /**
+     *  初始化bean到route
      * @param camelvBean
      */
-    public static void addCamelvRoute4Bean(CamelvBean camelvBean) {
+    private static void addCamelvRoute4Bean(CamelvBean camelvBean) {
         CamelvRoute route = camelvRouteMap.get(camelvBean.getDataId());
         if (route == null) {
             route = new CamelvRoute();
 
         }
         route.setRouteId(camelvBean.getDataId());
-        route.setRouteType(RouteType.ROUTE_TYPE_BEAN);
+        route.setRouteType(RouteTypeEnum.ROUTE_TYPE_BEAN.getType());
         route.setRouteName(camelvBean.getBeanName());
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("bean:");
+        stringBuilder.append(RouteTypeEnum.ROUTE_TYPE_BEAN.getType());
+        stringBuilder.append(":");
         stringBuilder.append(camelvBean.getBeanName());
         stringBuilder.append("?method="+camelvBean.getMethodName());
         if(!CollectionUtils.isEmpty(camelvBean.getOptionList())){
@@ -436,7 +458,7 @@ public class CamelvContext {
         Set<Entry<String, CamelvRoute>> entrySet = camelvRouteMap.entrySet();
         for (Entry<String, CamelvRoute> entry : entrySet) {
             CamelvRoute route = entry.getValue();
-//			if (RouteType.ROUTE_TYPE_JETTY.equals(route.getType()) && route.getUri().equals(uri)) {
+//			if (RouteTypeEnum.ROUTE_TYPE_JETTY.equals(route.getType()) && route.getUri().equals(uri)) {
 //				return route;
 //			}
         }

@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * bean资源
  *
- * @author xiaoka
+ * @author fangli
  *
  */
 public class CamelvBean implements Serializable {

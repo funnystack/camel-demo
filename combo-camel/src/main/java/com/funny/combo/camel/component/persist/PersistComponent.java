@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 持久化组件
  *
- * @author xiaoka
+ * @author fangli
  */
 @Component
 public class PersistComponent extends DefaultComponent {

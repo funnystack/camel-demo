@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication(scanBasePackages = {"com.funny.combo.camel","com.funny.demo.camel"})
 public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {
-        InitRoute.init();
+        InitRpcRoute.init();
         SpringApplication.run(Application.class, args);
     }
 

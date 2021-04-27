@@ -16,10 +16,10 @@
 			</when>
 			<when>
 				<simple>${propertyType} == 'parallel'</simple>
-<#--				<!-- 并行执行 &ndash;&gt;-->
-<#--				<recipientList parallelProcessing="true" strategyRef="aggregationStrategy">-->
-<#--					<simple>${propertyNextUri}</simple>-->
-<#--				</recipientList>-->
+				<!-- 并行执行 -->
+				<#--<recipientList parallelProcessing="true" strategyRef="aggregationStrategy">-->
+					<#--<simple>${propertyNextUri}</simple>-->
+				<#--</recipientList>-->
 				<!-- 聚合执行 -->
 				<choice>
 					<when>

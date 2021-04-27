@@ -1,5 +1,6 @@
 package com.funny.admin.camelv.util;
 
+import com.funny.combo.camel.entity.ComponentOption;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * 常用工具类<br/>
  *
- * @author xiaoka
+ * @author fangli
  *
  */
 public class CamelvUtil {

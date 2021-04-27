@@ -1,7 +1,7 @@
 package com.funny.combo.camel.manager;
 
 import com.funny.combo.camel.consts.OperateResult;
-import com.funny.combo.camel.consts.RouteType;
+import com.funny.combo.camel.consts.RouteTypeEnum;
 import com.funny.combo.camel.entity.CamelvLine;
 import com.funny.combo.camel.entity.CamelvRoute;
 import org.springframework.stereotype.Service;
@@ -38,9 +38,9 @@ public class CamelvCreateRouteSerialRuleServiceImpl implements ICamelvCreateRout
         // 遍历路由，开始生成规则
         for (CamelvRoute route : routes) {
             String type = route.getRouteType();
-            if (RouteType.ROUTE_TYPE_GROOVY.equals(type)) {
+            if (RouteTypeEnum.ROUTE_TYPE_GROOVY.equals(type)) {
                 rule.append(createGroovyRoute(route, lineMap));
-            } else if (RouteType.ROUTE_TYPE_HTTP.equals(type)) {
+            } else if (RouteTypeEnum.ROUTE_TYPE_RPC.equals(type)) {
                 rule.append(createHttpRoute(route, lineMap));
             }
         }

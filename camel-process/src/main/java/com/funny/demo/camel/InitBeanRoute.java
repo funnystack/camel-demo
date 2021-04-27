@@ -4,7 +4,7 @@ import com.funny.combo.camel.context.CamelvContext;
 import com.funny.combo.camel.entity.CamelvBean;
 import com.funny.combo.camel.entity.CamelvLine;
 
-public class InitRoute {
+public class InitBeanRoute {
 
 
     public static void init(){

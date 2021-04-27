@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 /**
  * 心跳
  *
- * @author xiaoka
+ * @author fangli
  *
  */
 public class HeartBeatListener {

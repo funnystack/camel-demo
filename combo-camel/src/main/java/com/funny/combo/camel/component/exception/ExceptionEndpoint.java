@@ -1,7 +1,6 @@
 package com.funny.combo.camel.component.exception;
 
 import com.alibaba.fastjson.JSON;
-import com.funny.combo.camel.consts.LogConstant;
 import org.apache.camel.Component;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.ResourceEndpoint;
@@ -16,7 +15,7 @@ import java.util.Map;
  * URI Format格式<br/>
  * exception:void<br/>
  *
- * @author xiaoka
+ * @author fangli
  *
  */
 public class ExceptionEndpoint extends ResourceEndpoint {
@@ -34,25 +33,24 @@ public class ExceptionEndpoint extends ResourceEndpoint {
 		logger.info("serverId = " + serverId);
 
 		// 获取错误类型
-		RouteState routeState = exchange.getProperty("routeState", RouteState.class);
-		if (routeState == null) {
+		RouteErrorCode routeErrorCode = exchange.getProperty("routeErrorCode", RouteErrorCode.class);
+		if (routeErrorCode == null) {
 			Throwable throwable = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
 			String failureRouteID = exchange.getProperty(Exchange.FAILURE_ROUTE_ID, String.class);
 			String failureEndpoint = exchange.getProperty(Exchange.FAILURE_ENDPOINT, String.class);
 			logger.error("异常路由:" + failureRouteID);
 			logger.error("异常路由endpoint:" + failureEndpoint);
 			// 未知异常
-			routeState = RouteState.UNKNOWN_EXCEPTION;
+			routeErrorCode = RouteErrorCode.UNKNOWN_EXCEPTION;
 			if (throwable != null) {
-				routeState.setMsg(throwable.toString());
+				routeErrorCode.setMsg(throwable.toString());
 			}
 		}
-		exchange.setProperty(LogConstant.LOG_SERVER_STATUS, "-1");
 		// 拼接异常信息
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("code", routeState.getCode());
-		map.put("msg", routeState.getMsg());
-		map.put("desc", routeState.getDesc());
+		map.put("code", routeErrorCode.getCode());
+		map.put("msg", routeErrorCode.getMsg());
+		map.put("desc", routeErrorCode.getDesc());
 		String data = JSON.toJSONString(map);
 		exchange.setOut(exchange.getIn());
 		exchange.getOut().setBody(data, String.class);

@@ -1,14 +1,14 @@
 package com.funny.combo.camel.component;
 
 import com.funny.combo.camel.consts.Constant;
-import org.apache.camel.AggregationStrategy;
 import org.apache.camel.Exchange;
+import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * 并行聚合策略
- * @author xiaoka
+ * @author fangli
  */
 public class ParallelAggregationStrategy implements AggregationStrategy {
 

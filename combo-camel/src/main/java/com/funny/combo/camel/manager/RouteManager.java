@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * 管理路由发布、废弃的类
  *
- * @author xiaoka
+ * @author fangli
  */
 @Component
 public class RouteManager {

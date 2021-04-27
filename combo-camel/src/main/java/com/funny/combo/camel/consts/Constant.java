@@ -3,7 +3,7 @@ package com.funny.combo.camel.consts;
 /**
  * 工程使用的常量<br/>
  *
- * @author xiaoka
+ * @author fangli
  *
  */
 public interface Constant {
@@ -18,9 +18,6 @@ public interface Constant {
 	public static final String TYPE_NODE = "node";
 	/** 路由关系类型 */
 	public static final String TYPE_LINE = "line";
-	/** 服务类型 */
-	public static final String TYPE_SERVER = "camelvServer";
-
 	// 以下是camel发布错误提示
 	/**  */
 	public static final String PARSE_XML_ERROR = "路由规则解析失败";
@@ -34,7 +31,7 @@ public interface Constant {
 	/** get请求 */
 	public static final String HTTP_GET = "get";
 	/** 默认contentType类型 */
-	public static final String CONTENT_TYPE = "text/plain";
+	public static final String CONTENT_TYPE_JSON = "application/json;charset=UTF-8";
 
 	/** 自定义路由id前缀 */
 	public static final String PREFFIX_ROUTE_ID = "route-";
@@ -51,8 +48,6 @@ public interface Constant {
 	// 错误码
 	/** 异常时存入的理由状态异常信息 */
 	public static final String ROUTE_STATE = "routeState";
-
-
 	/** 持久化开关 */
 	public static final String PERSIST_SWITCH = "persistSwitch";
 

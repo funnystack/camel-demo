@@ -9,6 +9,7 @@ import com.funny.admin.camelv.service.ICamelvGroovyService;
 import com.funny.admin.camelv.service.ICamelvHttpService;
 import com.funny.admin.camelv.service.ICamelvRouteService;
 import com.funny.admin.camelv.util.CamelvUtil;
+import com.funny.combo.camel.entity.ComponentOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

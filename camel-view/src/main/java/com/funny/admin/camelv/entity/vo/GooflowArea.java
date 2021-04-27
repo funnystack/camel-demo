@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 对应gooflow中的area
  * 
- * @author xiaoka
+ * @author fangli
  *
  */
 public class GooflowArea implements Serializable {
