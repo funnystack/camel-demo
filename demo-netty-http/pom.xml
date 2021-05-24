@@ -9,23 +9,28 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>demo-jetty</artifactId>
+    <artifactId>demo-netty-http</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>demo-jetty</name>
+    <name>${project.artifactId}</name>
 
     <dependencies>
-        <!-- Camel Spring Boot Starter 包依赖，包含了Spring Boot以及Apache Camel Core的依赖 -->
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-spring-boot-starter</artifactId>
+            <artifactId>camel-netty-http-starter</artifactId>
             <version>${camel.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.74</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jetty</artifactId>
-            <version>${camel.version}</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
+
     </dependencies>
 
 

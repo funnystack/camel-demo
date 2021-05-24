@@ -4,17 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.funny.study</groupId>
-    <artifactId>camel</artifactId>
+    <artifactId>camel-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>camel</name>
     <packaging>pom</packaging>
 
     <modules>
-        <module>demo-http4</module>
         <module>demo-file</module>
         <module>demo-ftp</module>
         <module>demo-jetty</module>
-        <module>demo-netty4-http</module>
+        <module>demo-netty</module>
+        <module>demo-netty-http</module>
 
     </modules>
     <properties>

@@ -8,24 +8,32 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.example</groupId>
-    <artifactId>demo-jetty</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>demo-netty</artifactId>
     <packaging>jar</packaging>
-    <name>demo-jetty</name>
+    <name>${project.artifactId}</name>
 
     <dependencies>
-        <!-- Camel Spring Boot Starter 包依赖，包含了Spring Boot以及Apache Camel Core的依赖 -->
         <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-spring-boot-starter</artifactId>
-            <version>${camel.version}</version>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-netty4</artifactId>
+            <version>2.16.4</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jetty</artifactId>
-            <version>${camel.version}</version>
+            <artifactId>camel-core</artifactId>
+            <version>2.16.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.70</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.2-jre</version>
+        </dependency>
+
     </dependencies>
 
 
