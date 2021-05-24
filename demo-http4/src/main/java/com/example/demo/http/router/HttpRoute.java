@@ -13,7 +13,7 @@ public class HttpRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("http4:http://0.0.0.0:80").process(getMethodProcessor);
+        from("http://0.0.0.0:80").process(getMethodProcessor);
 
     }
 }
